@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES9标签函数</title>
+</head>
+<body>
+    <script>
+    function fn() {
+    }
+    fn() //普通函数调用
+
+    function fn2(args) {
+        console.log(args);
+        return 1;
+    }
+    console.log(fn2`welcome`) //标签函数调用
+    </script>
+</body>
+</html>

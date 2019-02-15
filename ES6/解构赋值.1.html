@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>解构赋值</title>
+</head>
+<body>
+    <script>
+    let [a,b,c]=[1,2,3];
+    console.log(a,b,c);//1 2 3
+    //左右两边结构要保持一致
+    let [d,e,f]=[1,[2,3]]
+    console.log(d,e,f);// 1 [2,3] undefined
+    
+    let json={
+        name:'Jack',
+        age:18,
+        job:'it',
+    }
+    // let {name,age,job}=json;
+    // console.log(name,age,job); //Jack 18 it
+    let {name,age,job:jobName}=json; //此时jobName是名字 解构时候需要解jobName
+    console.log(name,age,jobName); //Jack 18 it
+
+    let [msg1,msg2,msg3='暂无数据']=['msg1','msg2']; //如果第三个值没有,或者为undefined 就使用默认数据,null和false不会使用暂无数据
+    console.log(msg1,msg2,msg3); //msg1 msg2 暂无数据
+
+    //可以用解构赋值来交换位置
+    let num1=1,num2=2;
+    [num1,num2]=[num2,num1];
+
+    function getPos() {
+        return{
+            left:20,
+            right:10,
+        }
+    }
+    let {left,right}=getPos();
+    console.log(left,right);//20 10
+    // 如果用top需要换名字,因为top在js中默认window
+    
+    function getPosTop() {
+        return{
+            top:15,
+            bottom:25,
+        }
+    }
+    let {top:t,bottom}=getPosTop();
+    console.log(t,bottom); //15 25
+    
+
+    import {module1,module2} from './mod'; //解构
+
+    //默认值
+    function show({a='默认',b='默认2'}={}){ //如果不={}的话,调用的时候必须要 show({});
+        console.log(a,b);
+    }
+    show();
+    </script>
+</body>
+</html>

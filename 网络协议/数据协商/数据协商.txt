@@ -1,0 +1,14 @@
+数据协商:
+    在客户端发送给服务端一个请求的时候,客户端会声明希望这个请求拿到的数据格式以及数据相关的一些限制
+    服务端会根据请求表示的想要拿到什么样的数据后,做出一个判断,
+分类:
+    - 请求:Accpet进行声明一个想要的数据,最主要的是Accept
+        Accpet指定想要的数据类型
+        Accpet-Encoding 代表数据是怎样的编码方式去进行传输,主要是限制服务端如何进行数据压缩
+        Accpet-Language 可以根据这个头来判断返回的信息是哪国语言 
+        User-Agent 浏览器信息
+    - 服务端返回的:Content
+        Content-Type:对应 Accpet
+            Accpet里面可能有好几种数据格式,Content-Type可以从里面挑一种进行返回
+        Content-Encoding 对应Accpet-Encoding 声明服务端使用了哪种数据压缩的形式
+        Content-Language 返回语言

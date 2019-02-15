@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Symbol-generator</title>
+</head>
+<body>
+    <script>
+    // Symbol不能new
+    // Symbol() 返回的是一个唯一的值
+    // 一般作为一个key 定义一些唯一或者私有的东西
+    // Symbol 是一个单独的数据类型 叫Symbol 基本类型
+    // 如果symbol作为key 用 for...in 循环不出来
+    let syml = Symbol('aaa');
+    console.log(typeof syml);
+    
+    // generator函数 (生成器);
+    // 解决异步 深度嵌套问题
+    // 语法 function * gen();
+    function * gen() {
+        yield 'welcome';
+        yield 'to';
+        return 'China';
+    }
+    let g1 = gen();
+    // console.log(g1); //对象
+    console.log(g1.next()); //{value: "welcome", done: false} //false:还没完成
+    console.log(g1.next()); // {value: "to", done: false}
+    console.log(g1.next()); // {value: "China", done: true} //true 执行完成
+
+    // 上述调用是手动调用 很麻烦
+
+    // for...of
+    let g2 = gen();
+    // next完后不执行for...of了 所以用g2演示
+    for (const val of g2) {
+        console.log(val);//自动遍历 遍历到return之前 return 不会遍历
+    }
+
+    //还可以解构赋值
+    let [a,b] = gen();
+    console.log(a,b); //解构对应yield的值
+    function * gen2() {
+        yield 'welcome';
+        yield '~~';
+        yield 'to';
+        return 'China';
+    }
+    let [c,...d] = gen2();
+    console.log(c,d)
+    // 扩展运算符
+    console.log(...gen2()); //和c,d感觉类似 welcome ~~ to
+    //Array.from
+    console.log(Array.from(gen2()));//(3) ["welcome", "~~", "to"]
+    
+    // 关于异步 解决
+    // 1.回调
+    // 2.事件监听
+    // 3.发布/订阅
+    // 4.Promise对象
+    </script>
+</body>
+</html>

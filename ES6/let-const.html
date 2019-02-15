@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>let const</title>
+</head>
+
+<body>
+    <script>
+        // let 不存在变量提升 (没有预解析)
+        // TDZ 暂时性死区 (在变量没有定义前都是死区,在变量出现后结束)
+        // 必须先定义再使用
+        // 同一个作用域不可以重复定义变量
+        // for循环里面是父级作用域,里面又一个
+    
+        // function fn(params) {
+        //     alert(a);//死区开始
+        //     console.log(123);
+        //     let a = 1; //死区结束
+        // }
+        // fn();
+
+        for (let i = 0; i < 3; i++) {
+            let i = 'abc';
+            console.log(i);// abc
+            // 因为↓↓
+            // for(这里是父级作用域){子级作用域}
+        }
+         
+         {
+             let a='a';
+             console.log(a);
+             {
+                 let a='b';
+                 console.log(a); //b
+             }
+             console.log(a);//a 
+         }
+         //依次执行
+
+         var arr=[];
+         for (let i = 0; i < 10; i++) {
+             arr[i]=function(){
+                 console.log(i);//5
+                 //如果是用var定义 这就是10
+             }
+         }
+         arr[5]();
+         console.log(arr);
+
+        //  const定义完变量必须有值 不能后赋值 不能修改
+        //  const定义数组可以push
+
+        // 定义数组不允许修改 Object.freeze();
+
+        const arrFreeze=Object.freeze(['apple','banana']);
+        console.log(arrFreeze)
+        // arrFreeze.push('orange');//报错 不可扩展
+        
+        //对象也可以修改
+        const obj={
+            name:'ming',
+            age:18,
+        };
+        obj.name='Jack';
+        console.log(obj.name); //Jack
+        
+    </script>
+</body>
+
+</html>

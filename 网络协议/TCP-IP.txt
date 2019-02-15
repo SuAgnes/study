@@ -1,0 +1,5 @@
+TCP/IP
+TCP和IP是两个不同层的协议
+TCP:transmission control protocol 传输控制协议
+IP:internet protocol 网络协议
+TCP/IP常指代TCP/IP协议族或TCP/IP协议栈

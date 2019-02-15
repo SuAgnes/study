@@ -1,0 +1,96 @@
+// main.less
+@width: 100%;
+@height: 100px;
+@color: red;
+
+.container{
+   width: @width;
+   height: @height;
+   background-color: @color;
+   margin-bottom: 5px;
+ }
+
+.container2{
+  width: @width;
+  height: @height;
+  background-color: @color;
+  margin-bottom: 5px;
+}
+
+.container3{
+  width: @width;
+  height: @height;
+  background-color: @color;
+  margin-bottom: 5px;
+}
+// 分割线----------------------------------
+
+//传统css
+#menu a {
+  color: #111;
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+
+#menu span {
+  height: 16px;
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+
+#menu p {
+  color: red;
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+
+// 可以看到上面三个样式中都有 border-top 和 border-bottom 两个属性，并且内容完全相同；在传统 CSS 写法中只能这样一遍有一遍的去书写重复的内容，在 Less 中通过将公共属性抽取出来作为一个公共类的方式规避这一点。
+
+// less写法
+// example2.less
+.bordered {
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+
+#menu a {
+  color: #111;
+  .bordered;
+}
+
+#menu span {
+  height: 16px;
+  .bordered;
+}
+
+#menu p {
+  color: red;
+  .bordered();
+}
+// 混合也是减少代码书写量的一个方法；
+// 
+// 混合的类名在定义的时候加上小括弧 ()，那么在转译成 css 文件时就不会出现；
+// 
+// 混合的类名在被调用的时候加上小括弧 ()和不加上小括弧 ()是一样的效果，看个人习惯，如：第三行和第八行转译成 css 是一样的。
+
+// 分割线----------------------------------
+
+#header :after {
+  content: " ";
+  display: block;
+  font-size: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+#header {
+  &:after {
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+// 分割线----------------------------------

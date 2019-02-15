@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Map-WeakMap</title>
+</head>
+<body>
+    <script>
+        //  map:
+        //      类似json,但json的key只能是字符串,但map的key可以是任意乐行
+        //  使用:
+        let map = new Map();
+        //  map.set(key,value); 设置一个值
+        map.set('a','1');
+        console.log(map);
+        let json = {
+            a:'aa',
+            b:'bb'
+        }
+        map.set(json,'jsonValue');
+        console.log(map);
+        //  map.set(key); 获取一个值
+        console.log(`获取值:${map.get(json)}`); //值 jsonValue
+        //  map.delete(key) 删除一项
+        map.delete(json); //返回布尔值 有的值反true 没有的反false
+        console.log(map);
+        console.log(`判断有没有:${map.has(json)}`); //判断有没有
+        map.clear();
+        console.log(map);
+
+        let map2 = new Map();
+        map2.set('a',1).set(json,'jsonValue').set('b',2);
+        //循环
+        for (const [key,value] of map2) {
+            console.log(key,value);
+        }
+        console.log('----------------------------------------');
+        for (const key of map2.keys()) {
+            console.log(key);
+        }
+        console.log('----------------------------------------');
+        for (const value of map2.values()) {
+            console.log(value);
+            
+        }
+        console.log('----------------------------------------');
+        map2.forEach((value,key) => {
+            console.log(value,key);
+        });
+        console.log('----------------------------------------');
+        for (const [k,v] of map2.entries()) {
+            console.log(k,v);
+        }
+        console.log('----------------------------------------');
+        // WeakMap() key只能是对象
+        let wMap = new WeakMap();
+        wMap.set(json,'a');
+        console.log(wMap);
+        console.log('----------------------------------------');
+
+        // 总结: Set 里面是数组,不重复,没有key,meiy get方法。
+            //   Map 对json功能的增强,key可以是任意类型的值。
+        </script>
+</body>
+</html>

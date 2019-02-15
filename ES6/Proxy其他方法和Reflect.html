@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Proxy其他方法和Reflect</title>
+</head>
+<body>
+    <script>
+        // set()设置 拦截
+        // 设置年龄范围 保证整数不超过200
+        let obj =new Proxy({},{
+            set(target, prop, value){
+                if(prop == "age") {
+                    if(!Number.isInteger(value)){
+                        throw new TypeError('年龄必须为正数');
+                    }
+                    if(value > 200) {
+                        throw new RangeError('年龄超标了')
+                    }
+                }
+                //给对象设置值
+                target[prop] = value;
+            }
+        })
+        obj.a = 123;
+        obj.name = 'sakura';
+        console.log(obj);
+        
+        console.log('-----------------------------------------');
+        
+        let json = {
+            a:1,
+            b:2
+        }
+        let newJson = new Proxy (json,{
+            deleteProperty(target, property){
+                console.log(`将要删除${property}属性`);
+                //TODO
+                delete target[property]; //真正执行删除的地方
+            },
+            has(target, property){
+                console.log(`判断是否存在${property}属性`);
+                return property in target ;
+            }
+        })
+        
+    console.log('a' in newJson);
+    delete newJson.a;
+    console.log(newJson);
+    console.log('-----------------------------------------');
+
+    function fn() {
+        return '一个函数'
+    }    
+    let newFn = new Proxy(fn, {
+        apply(){
+            return 'apply';
+        }
+    })
+    console.log(newFn());
+    console.log('-----------------------------------------');
+    function sum(a,b) {
+        return a+b;
+    }    
+    let newSum = new Proxy(sum, {
+        apply(target, context, args){
+            console.log(target, context, args);
+            // console.log(args);
+            // console.log(...arguments); = console.log(target, context, args);
+            
+            return Reflect.apply(...arguments);
+            // 如果需要去增强方法的一些功能 基本需要和Reflect(反射)去配合;
+        }
+    })
+    console.log(newSum(2,3));
+    console.log('-----------------------------------------');
+    // Reflect.aple(调用的函数, this指向, 参数数组)
+    // 与fn.call()和fn.appley() 类似
+    // Reflect 反射
+    let res = Reflect.apply(Math.ceil,null,[10.5]);
+    //与 Math.ceil(10.5);结果一样
+    console.log(res);
+    console.log('-----------------------------------------');
+
+    function show(...args) {
+        console.log(this);
+        console.log(args);
+    }
+    show(1,1); 
+    show.call('aa',2,2); 
+    show.apply('bb',[3,3]); 
+    Reflect.apply(show,'cc',[4,4]);
+    console.log('-----------------------------------------');
+    // Reflect严格来说应该说算是语言内部的方法
+    // 标准想尽量把(Object.xxx)语言内部的方法,尽量放到Reflect对象身上
+    // Reflect现在还不是太标准
+    // 通过Reflect对象身上拿到语言内部的东西 ↓↓
+    console.log('assign' in Object);
+    console.log(Reflect.has(Object,'assign')); //未来的检测形式
+    console.log('-----------------------------------------');
+
+    let jsonRe = {a:1, b:2};
+    Reflect.deleteProperty(jsonRe, 'a');  // 这样也可以删   
+    console.log(jsonRe); //{b: 2}
+    </script>
+</body>
+</html>

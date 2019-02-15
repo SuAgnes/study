@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promise</title>
+</head>
+<body>
+    <script>
+    // Promise 承诺,许诺
+    // 作用:解决异步回调问题
+    // 传统方式:大部分用回调函数 时间
+
+    new Promise(function(resolve,regect){
+        // resolve 成功调用
+        // reject  失败调用
+    })
+    
+    let a = 1;
+    let promise = new Promise(function(resolve,reject){
+        if(a==10){
+            resolve('成功');
+        }else{
+            reject('失败');
+        }
+    });
+
+    promise.then(res=>{
+        console.log(res);
+        
+    },err=>{ //不写失败会报错 错误信息和reject定义的内容一样
+        console.log(err);
+        
+    });
+    // promise.then(success, fail);
+    promise.catch(err=>{ //reject 发生错误 fail的别名
+        console.log(err);
+    })
+
+    // 可以这样写
+    let b = 1;
+    let promise2 = new Promise(function(resolve,reject){
+        if(b==5){
+            console.log('b=5');
+        }else{
+            console.log('b!=5');
+        }
+    })
+    promise2.then(res=>{
+        console.log(res);
+    }).catch(err=>{
+        console.log(err);
+    })
+    // 一般不写then的第二个参数
+    // new Promise().then(res=>{}).catch(err=>{});
+    function 示例() {
+        Promise.resolve('aa'); //将现有的东西 转成一个promise对象 resolve状态
+        //等价于↓↓
+        new Promise(resolve=>{
+            resolve('aa');
+        })
+
+        Promise.reject('bb'); //将现有的东西 转成一个promise对象 reject状态
+        //等价于↓↓
+        new Promise((resolve,reject)=>{
+            reject('bb');
+        })
+
+    }
+    console.log('--------------------------------------------------------');
+    (function promiseAllExample() {
+        // Promise.all([p1,p2,p3]); //批量处理promise,把promise打包,扔到一个数组里,打包完还是一个promise对象
+        let p1 = Promise.resolve('a1');
+        let p2 = Promise.resolve('a2');
+        let p3 = Promise.resolve('a3');
+        
+        Promise.all([p1,p2,p3]).then(res=>{
+            console.log(res);
+            // 可以解构
+            let [res1,res2,res3] = res;
+        })
+        //all必须确保所有的promise对象,都是resolve状态
+    })();
+
+    (function promiseRaceExample() {
+        //race只要有一个成功,就返回
+        let p1 = Promise.resolve('a1');
+        let p2 = Promise.reject('a2');
+        let p3 = Promise.resolve('a3');
+        
+        Promise.race([p1,p2,p3]).then(res=>{
+            console.log(res);
+        }).catch(err=>{
+            console.log('raceError');
+        })
+    })(); 
+    </script>
+</body>
+</html>

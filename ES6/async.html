@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>async</title>
+</head>
+
+<body>
+    <script>
+        //async
+        // async function fn() { //前面加async 告诉函数里面有异步任务
+        //     let f1 = await 执行函数(1) //表示后面的结果需要等待
+        //     执行1
+        //     let f2 = await 执行函数(2)
+        //     执行2
+        //     let f3 = await 执行函数(3)
+        //     执行3
+        // }
+
+        // 特点
+        // 1.await只能放到async函数中
+        // 2.相比generator语义化更强
+        // 3.await后面可以是promise对象 也可以是数字/字符串/布尔值
+        // 4.generator后面只能是promise
+        // async返回的是promise对象
+        // 5.await语句后面promise状态变成reject,那么整个async函数会中断执行
+
+        async function fn() {
+            throw new Error('出错了');
+        }
+        // fn().then(res=>{
+        //     console.log(res);
+            
+        // },err=>{
+        //     console.log(err);
+            
+        // })
+        fn().then(res=>{
+            console.log(res);
+            
+        }).catch(err=>{
+            console.log(err);
+            console.log('-------------------------------------------------------');
+        })
+        // 如何解决async函数中抛出错误 影响后续代码
+        // 1.try{}catch(e){};
+        async function fn2() {
+            try {
+                await Promise.reject('出现问题了');
+            } catch (e) {
+                
+            }
+            let a = await Promise.resolve('success');
+            console.log(a);
+        }
+        fn2().then(res=>{
+            console.log(res);
+        }).catch(err=>{
+            console.log(err);
+            console.log('-------------------------------------------------------');
+        })
+        // 2.Promise本身catch
+        async function fn3() {
+            await Promise.reject('出现问题了').catch(err=>{console.log(err);})
+            let a = await Promise.resolve('success');
+            console.log(a);}
+        fn3().then(res=>{
+            console.log(res);
+        })
+        //个人建议有await都要try catch掉
+
+        async function fn4() {
+            let [a,b,c] = await Promise.all([
+                // 3个请求
+                // 3个请求没有关系的时候可以这么用
+            ])
+            console.log(a);
+            console.log(b);
+            console.log(c);
+        }
+        fn4();
+    </script>
+</body>
+
+</html>

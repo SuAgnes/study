@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组新增</title>
+</head>
+<body>
+    <ul>
+        <li>aaa</li>
+        <li>bbb</li>
+        <li>ccc</li>
+    </ul>
+    <script>
+    //扩展运算符
+    let aLi=document.querySelectorAll('li');
+    console.log(aLi); //NodeList
+    let arrLi=[...aLi];
+    console.log(arrLi); //变成数组了 可以使用数组方法
+    
+    // Array.from():
+    // 把类数组(获取数组,arguments...)对象转成数组
+    let arrLi2=Array.from(aLi); //ES6+ 只要具备length 就能用
+    console.log(arrLi2);
+    let arrLi3=Array.prototype.slice.call(aLi); //ES5之前
+    console.log(arrLi3);
+    console.log('------------------------------------------------------');
+    let str = 'string';
+    console.log(str.length); //6
+    let aStr = Array.from(str); 
+    console.log(aStr); // ["s", "t", "r", "i", "n", "g"]
+    console.log('------------------------------------------------------');
+    let json = {
+        0:1,
+        1:'sakura',
+        2:2,
+        length:3 //有length即使是对象也可以使用array.from 但是key值必须是数字,从0开始
+    }
+    let aJson=Array.from(json);
+    console.log(aJson);
+    console.log('------------------------------------------------------');
+    Array.of();//把一组值转为数组
+
+    let aOf=Array.of('apple','banana','orange');
+    console.log(aOf);
+    console.log('------------------------------------------------------');
+    let arrFind=[1,2,3,900,100,30];
+    let arrFindNew=arrFind.find((val,index,arr)=>{
+        return val>100;
+    })
+    console.log(arrFindNew); //找900而不是101 ,会找第一个符合条件的数组成员,如果没有找到返回undefined
+    console.log('------------------------------------------------------');
+    let arrFindIndex=arrFind.findIndex((val,index,arr)=>{
+        return val>100;
+    })
+    console.log(arrFindIndex); //3 没找到返回-1
+    console.log('------------------------------------------------------');
+    // arr.fill(填充的东西,开始位置,结束位置)    
+    // 填充
+    let arrFill=new Array(10);
+    console.log(arrFill);
+    arrFill.fill ('默认值',1,5);
+    console.log('------------------------------------------------------');
+    //在ES2016新增:
+    // arr.includes(); 包含
+    let arrIncludes = ['apple','banana','orange','tomato'];
+    let arrIncludesNew = arrIncludes.includes('orange');
+    console.log(arrIncludesNew); // true
+    
+    </script>
+</body>
+</html>

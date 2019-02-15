@@ -1,0 +1,6 @@
+Content-Security-Policy: 内容安全策略
+作用: 限制网页中所需要资源的获取情况(从哪获取,发送到哪)
+报告资源获取权:在网页中获取了一些不该获取资源的时候,给服务进行一个报告,让我们知道网页出现了没有预计到的情况
+
+default-src限制全局
+制定资源类型:connect-src/img-src/font-src/manifest-src/media-src/style-src/script-src/frame-src等

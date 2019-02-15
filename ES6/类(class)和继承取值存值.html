@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类(class)和继承取值存值</title>
+</head>
+<body>
+    <script>
+        // 矫正this
+        class Person{
+            constructor() {
+            }
+            get a() {
+                return 'a的属性';
+            }
+            set a(val) {
+                console.log(`设置a属性,值为${val}`);
+            }
+            showName() {
+                return '这是showName方法';
+            }
+            static staticFn() {
+                return '这是静态方法';
+            }
+        }
+
+        let p1 = new Person();
+        p1.a = '123';
+        console.log(p1.a);
+
+        // class里面取函数(getter),存值函数(setter)
+        // 静态方法:类身上的方法 static 方法(){}
+        // 调用 父类.方法();
+
+        console.log(p1.showName());
+        console.log(Person.staticFn()); //静态
+        // 继承prototype 子.prototype=new 父类()
+
+        class Person2{
+            constructor(name) {
+                this.name = name;
+            }
+            showName() {
+                console.log('父级showName');
+                return `名字为${this.name}`;
+            }
+        }
+        //子类
+        class Student extends Person2{//继承
+            // constructor(args) {
+            //     //子类必须执行这个函数 把父级里的拉过来↓
+            //     super(args);
+            // }
+            constructor(name,skill) {
+                //子类必须执行这个函数 把父级里的拉过来↓
+                super(name);
+                this.skill = skill;
+            }
+            showName() {
+                //想不吞掉父类的showName()
+                super.showName()//执行父类的方法
+                return `子级showName`;
+            }
+        }
+        let stu = new Student('sakura','study');
+        console.log(stu.showName());
+        console.log(stu.skill);
+        
+    </script>
+
+</body>
+</html>

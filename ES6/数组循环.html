@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组循环</title>
+</head>
+
+<body>
+    <script>
+        // arr.forEach();
+        // arr.map();
+        // 重新整理数据结构
+        // arr.filter();
+        // arr.some();
+        // arr.every();
+        // 其实他们可以接收两个参数;
+        // arr.forEach/map(循环回调函数,this指向谁)
+        // arr.reduce();
+        // arr.reduceRight();
+
+        // arr.forEach(); 没有返回值
+        // 代替普通for循环
+        console.log('arrForEach--------------------------------------------');
+        let arrForEach = ['apple', 'banana', 'orange', 'tomato'];
+        arrForEach.forEach((val, index, arr) => {
+            console.log(val, index, arr);
+            //值,索引,数组
+            console.log(this);//始终指向window
+            //箭头函数指向当前定义函数所在的对象
+        });
+        arrForEach.forEach(function (val, index, arr) {
+            console.log(this);//普通函数可更改this指向
+        }, 123);
+
+
+        // arr.map(); 
+        // 非常有用,做数据交互"映射"
+        // 一般需要配合return ,额偶return 就相当于forEach;
+        // 返回一个新的数组
+        // 没有返回值的时候,每个值都返回undefined
+        // 注意 平时只要用map 一定要有return
+        console.log('arrMap--------------------------------------------');
+        let arrMap = [
+            { name: 1, age: 18 },
+            { name: 2, age: 20 },
+            { name: 3, age: 22 }
+        ];
+        let arrMapData = ['sakura', 'takasi', 'naoki'];
+        //改变原数组
+        arrMap.map((item, index, arr) => {
+            return item.name = arrMapData[index];
+        })
+        //新数组
+        // 重新整理数据结构
+        let arrMapDataNew = arrMap.map((item, index, arr) => {
+            let json = {};
+            json.n = `${item.name}---`;
+            json.age = item.age + 2;
+            return json;
+        })
+        console.log(arrMap); //名字已经变了
+        console.log(arrMapDataNew);
+
+
+        // arr.filter() 过滤一些不合格元素
+        console.log('arrFilter--------------------------------------------');
+        let arrFilter = [
+            { name: 1, age: 18, hot: true },
+            { name: 2, age: 20, hot: false },
+            { name: 3, age: 22, hot: true }
+        ]
+        let arrFilterNew = arrFilter.filter((item, index, arr) => {
+            return item.hot === true;
+        })
+        console.log(arrFilterNew);//此时hot为false的数据已经没有了
+
+        // arr.some();
+        // 类似查找 数组里面某一个元素符合条件 返回处
+        console.log('arrSome--------------------------------------------');
+        let arrSome = ['apple', 'banana', 'orange'];
+        let arrSomeNew = arrSome.some((val, index, arr) => {
+            return value = 'banana';
+        })
+        console.log(arrSomeNew); //true 查找到了
+        //查找函数
+        function findInArray(arr, item) {
+            return arr.some((val, index, arr) => {
+                return val === item;
+            })
+        }
+        console.log(findInArray(arrSome, 'banana2'));
+
+
+        //arr.every(); 数组里面所有元素都要符合条件,才返回true;
+        console.log('every--------------------------------------------');
+        let arrEvery = [1, 3, 5, 7, 9];
+        let arrEveryNew = arrEvery.every((val, index, arr) => {
+            return val % 2 === 1;
+        })
+        console.log(arrEveryNew); //true 所有val都符合条件
+        let arrEvery2 = [1, 3, 5, 7, 9, 10];
+        let arrEveryNew2 = arrEvery2.every((val, index, arr) => {
+            return val % 2 === 1;
+        })
+        console.log(arrEveryNew2); //false 不是每个val%2都===1;
+
+        // arr.reduce(); 
+        // 求数字的和;
+        console.log('arrReduce--------------------------------------------');
+        let arrReduce = [1,2,3,4,5,6,7,8,9,10];
+        let arrReduceNew = arrReduce.reduce((prev, cur, index, arr) =>{
+            return prev+cur;
+        })
+        console.log(arrReduceNew);
+        
+        // ES2017新增了一个运算符 幂次方
+        let numPow=2 ** 3;
+        console.log(numPow);
+
+        // arr.reduceRight(); 与arr.reduce是相反方向 从右往左
+        
+        //ES6
+
+        // for..of
+        console.log('for-of--------------------------------------------');
+        let arrForOf = ['apple', 'banana', 'orange', 'tomato'];
+        for (const val of arrForOf) {
+            console.log(val);
+        }
+
+        for (const index of arrForOf.keys()) {// 数组下标
+            console.log(index);
+        }
+
+        for (const item of arrForOf.entries()) {// 数组某一项
+           console.log(item);
+        }
+
+        for (const [key,value] of arrForOf.entries()) {
+           console.log(key,value);
+        }
+    </script>
+</body>
+
+</html>

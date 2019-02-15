@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数字变化和Math新增的东西</title>
+</head>
+<body>
+    <script>
+    // 数值变化
+
+    let a = 1;
+    console.log(Number.isFinite(a)); //判断是不是数字 如果是字符串数组也是false
+    console.log(Number.isNaN(NaN)); //true 除了NaN 都是false 包括字符串等
+    
+    // 它们与传统的全局方法isFinite()和isNaN()的区别在于，传统方法先调用Number()将非数值的值转为数值，再进行判断，而这两个新方法只对数值有效.
+    // Number.isFinite()对于非数值一律返回false,Number.isNaN()只有对于NaN才返回true，非NaN一律返回false。
+    
+    // Number.isInteger()判断数字是不是正数
+    console.log(Number.isInteger(12));
+    // 判断是不是安全整数 -(2^53-1)到(2^53-1) 包含 -(2^53-1)到(2^53-1)
+
+    let b = 2 ** 53 - 1;
+    console.log(Number.isSafeInteger(b));
+
+    console.log(2**53-1);
+    // 这两个数一样 //最大安全整数
+    console.log(Number.MAX_SAFE_INTEGER);
+
+    // 最小安全整数
+    console.log(-(2**53-1));
+    console.log(Number.MIN_SAFE_INTEGER);
+    
+    console.log('----------------------------------------------');
+    console.log(Math.trunc(4.56)); // 4 截断 只保留整数部分
+    console.log(Math.sign(-5)); // -1 判断一个数是正数还是负数0
+    // -5 → -1 / 5 → 1 / 0 → 0 / -0 → -0 / 'abc' → NaN
+    console.log(Math.cbrt(27)); // 3 计算一个数的立方根(3*3*3)
+    
+    </script>
+</body>
+</html>

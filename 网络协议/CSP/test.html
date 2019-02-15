@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Content-Security-Policy也可以在meta里写 -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'"> -->
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self'">
+    <!-- 可以通过connect-src来限制发送ajax请求时候的目的地 -->
+    <!-- 如果想使用report-uri只能通过header去设置,meta用不了 -->
+    <title>CSP</title>
+</head>
+<body>
+    <!-- xss是通过在网站里注入别人写的脚本导致页面出现问题/窃取信息/ -->
+    <script>
+        console.log('inline js');
+        fetch('http://baidu.com')
+    </script>
+    <!-- <script src="/test.js"></script> -->
+    <form action="http://baidu.com">
+        <button type="submit">Click Me</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</body>
+</html>

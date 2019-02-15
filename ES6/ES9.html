@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=], initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES9(ES2018)</title>
+</head>
+<body>
+    <script>
+    // 命名捕获
+    // 语法(?<名字>)
+    let time = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+    let strTime = '2019-01-24';
+    let timeObj = strTime.match(time).groups;
+    let {year, month, day} = timeObj;
+    console.log(year, month, day); //解构命名
+    
+    // 反向引用: \1 \2 $1 $2
+    // 反向引用命名捕获: \k<名字>
+    let str = 'welcome-welcome-welcome';
+    let pattern = /(?<wel>welcome)-\k<wel>/;
+    let pattern2 = /(?<wel>welcome)-\k<wel>-\1/; //这样混着用也可以
+    console.log(str.match(pattern));
+    
+    console.log('----------------------------');
+    let strTime2 = '2019-01-24';
+    console.log(strTime2.replace(time,'$<month>/$<day>/$<year>')); //可以这样去用
+    let strTime22 = strTime2.replace(time,(...args)=>{
+        console.log(...args);
+        let {year, month, day} = args[args.length-1];
+        return `${day},${month},${year}`;
+    })
+    console.log(strTime22);
+    console.log('----------------------------');
+
+    // 2.dotAll模式 s
+    //      之前/./在正则里表示匹配任意东西, 但是不包括\n
+    let regDot = /^\w+.\w+$/s;
+    let strDot = 'welcome\nto'
+    // let strDot = 'welcome\nto' //如果是这样的话 都会在后面加个m解决 但是感觉很奇怪,因为明明没有换行
+    // 所以加了\s 后面是s的话 表示前面可以匹配任何东西
+    console.log(regDot.test(strDot));
+    
+    </script>
+</body>
+</html>

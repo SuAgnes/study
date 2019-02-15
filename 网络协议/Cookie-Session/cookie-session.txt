@@ -1,0 +1,10 @@
+cookie
+在服务端返回数据的时候,通过Set-Cookie设置并保存在浏览器中的内容
+浏览器保存了cookie之后,下次在同域的请求中会会自动带上
+在用户访问网站的会话中,通过cookie一直传输的内容保证返回的数据是这个用户的
+键值对,可以设置多个
+属性:
+max-age和expires设置过期时间
+Secure只在https的时候发送 http不会访问
+设置HttpOnly后,无法通过document.cookie(JS)访问:
+    为了安全性 不被攻击

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>字符串模板</title>
+</head>
+<body>
+    <ul id="ul">
+    </ul>
+    <script>
+    let name='Jack',age=18,str='这个人叫'+name+',年龄'+age+'岁';
+    //字符串模板
+    let strTemplate=`这个人叫${name},年龄${age}岁`;
+    console.log(str);
+    console.log(strTemplate);
+    //优点:随意换行
+    let oUl=document.getElementById('ul');
+    let data=[{
+        name:'sakura',
+        age:18
+    },{
+        name:'takasi',
+        age:20
+    },{
+        name:'naoki',
+        age:22
+    }]
+    for (let i = 0; i < data.length; i++) {
+       let oLi=document.createElement('li');
+       oLi.innerHTML=`
+        <span>姓名:${data[i].name}</span>
+        <span>年龄:${data[i].age}</span>`;
+        oUl.appendChild(oLi);
+    }
+
+    //字符串查找
+    let strIncludes='apple banana pear';
+    console.log(strIncludes.includes('banana')); //布尔值
+    
+    if(navigator.userAgent.includes('Chrome')){
+        console.log('chrome');
+    }else{
+        console.log('!chrome');
+    }
+
+    //字符串是否以xxx开头
+    
+    let strStart='https://study.163.com/course/courseLearn.htm?courseId=1005211046#/learn/video?lessonId=1051944091&courseId=1005211046';
+    let strStart2='www.baidu.com';
+    console.log(strStart.startsWith('http'));//true
+    console.log(strStart2.startsWith('http'));//false
+    
+    //字符串是否以xxx结尾
+    // str.endsWith
+    
+    let strPNG='photo.png';
+    console.log(strPNG.endsWith('.png'));
+    
+    //重复字符串
+
+    let strRepeat='呵';
+    console.log(strRepeat.repeat(3));
+    
+    //填充字符串
+    let strPad='xxx';
+    console.log('a'.padStart(4,strPad));
+    console.log('b'.padEnd(4,strPad));
+    //不数数
+    let strPadMsg='abc';
+    console.log(strPadMsg.padStart(strPad.length+strPadMsg.length,strPad));
+    </script>
+</body>
+</html>

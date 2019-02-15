@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组去重</title>
+</head>
+<body>
+    <script>
+        let arr = [1,0,2,9,3,8,4,7,5,6,0,1,9,2,8,3,7,4,6];
+        function uniq(arr) {
+            let newArr = [];
+            arr.forEach((val,index,arr) => {
+                if(newArr.includes(val) !== true){
+                    newArr.push(val);
+                }
+            });
+            return newArr;
+        }
+        console.log(uniq(arr));
+        let newArrSet = [...new Set(arr)];
+        console.log(newArrSet);
+        function uniq2(arr) {
+            return Array.from(new Set(arr));
+        }
+        console.log(uniq2(arr));
+        
+    </script>
+</body>
+</html>

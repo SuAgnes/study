@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类(class)和继承</title>
+</head>
+<body>
+    <script>
+        // 面向对象 类:属性/方法
+        
+        // ES5之前函数模拟
+        function PersonFn(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        PersonFn.prototype.showName = function(){
+            return `名字为${this.name}`
+        };
+        PersonFn.prototype.showAge = function(){
+            return `年龄为${this.age}`
+        };
+        // 或者↓这种方法
+        Object.assign(PersonFn.prototype,{
+            showName() {
+                return `名字为${this.name}`
+            },
+            showAge() {
+                return `年龄为${this.age}`
+            },
+        });
+        //ES6中变形
+        let a= 'aFn';
+        let b= 'bFn';
+        class Person{
+            constructor(name,age) {
+                //构造方法(函数).在调用new的时候自动执行
+                console.log(name,age);
+                this.name = name;
+                this.age = age;
+            }
+            showName(){
+                return `名字为${this.name}`
+            }
+            showAge(){
+                return `年龄为${this.age}`
+            }
+            [a]() {
+                return '用变量当方法名';
+            }
+            [a+b]() {
+                return '还可以这样';
+            }
+        }
+        let p1=new Person('sakura',18);
+        console.log(p1[a]());
+        
+        const PersonCla=class {
+            constructor() {
+                //一样可以用
+            }
+        }
+        // class 后首字母大写是语法规范
+        // class 没有预解析(提升)的功能,在ES5用函数模拟是可以的,因为函数是默认提升的
+        // 在用函数的时候可以先定义let p1 = new Person;再 function Person
+        // 但是class不行 会报错
+        // 用class this
+    </script>
+
+</body>
+</html>

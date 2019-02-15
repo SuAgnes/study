@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数变化</title>
+</head>
+
+<body>
+    <script>
+        //函数默认参数
+        function show(a = "a", b = "b") {
+            console.log(a, b);
+        }
+        show(undefined, 'haha');
+
+        //函数参数默认已经定义,不能再用let,const声明
+
+        //重置
+        function show2(...a) {
+            console.log(a);//[1,2,3,4,5]; 变成数组了
+            return a.sort();//排序
+        }
+        //...既可以展开又可以收回
+        show2(1, 2, 3, 4, 5);
+        console.log(show2(3, 1, 6, 9, 4, 5));
+
+        function show3(a,b,c) {
+            console.log(a,b,c);
+        }
+        show3(...[1,2,3]);//加上...后数组散着排列了
+
+        function show4(a,b,...c){
+            console.log(a,b,c);
+        }
+        show4(1,2,3,4,5,6,7,8);
+
+        let arr=[1,2,3,4,5];
+        //拷贝
+        let arr2=[...arr];
+        let arr3=Array.from(arr);
+
+        //箭头函数
+
+        // ()=>return的东西
+        // ()=>{
+        //     语句
+        //     return
+        // }
+        let showFn=(a=1,b=5)=>{
+            return console.log(a+b);
+        }
+        showFn();
+
+        var id=10; //如果用var定义一个全局变量,下面的setTimeout就可以弹出10,因为var属于window,但let和const不属于,所以如果用let/const定义的话,下面依旧弹出undefined
+        let json={
+            id:1,
+            show:function(){
+                setTimeout(function(){
+                    alert(this.id); //弹出undefined 因为settimeout的this属于window
+                }, 1000);
+            }
+        }
+            let json2={
+            id:1,
+            show:function(){
+                setTimeout(() => {
+                    alert(this.id); //1 用箭头函数后 this指向定义函数所在的对象 不再是运行时所在的对象
+                    // 此时this指向json
+                }, 1000);
+            }
+        }
+        json.show();
+        json2.show();
+        //箭头函数里没有arguments,用...
+
+        let show5=(...args)=>{
+            console.log((args));
+        }
+        show5(1,2,3,4,5)
+
+        //箭头函数不能当构造函数
+
+        //es2017 函数参数最后可以是逗号
+        function show6(a,b,c,) {
+            console.log(a,b,c);
+        }
+        show6(1,2,3,)
+    </script>
+</body>
+
+</html>

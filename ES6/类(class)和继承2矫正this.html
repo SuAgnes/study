@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类(class)和继承</title>
+</head>
+<body>
+    <script>
+        // 矫正this
+        class Person{
+            constructor(name,age) {
+                this.name = name;
+                this.age = age;
+                this.showName = this.showName.bind(this); //重新定向矫正this    
+            }
+            showName(){
+                console.log('this:',this);
+                
+                return `名字为${this.name}`
+            }
+            showAge(){
+                return `年龄为${this.age}`
+            }
+        }
+
+        let p1 = new Person('sakura',18);
+        let {showName} = p1;
+        console.log(showName());
+        
+        // 矫正this
+        // 1.fn.call()
+        // 2.fn.apply()
+        // 3.fn.bind()
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模块化</title>
+</head>
+<body>
+    <script>
+        // ES6 统一了服务端和客户端模块规范
+        // 注意: 需要放到服务器环境
+        // a)如何定义模块?
+            // export 出口
+            // import 引入: 可以是绝对路径 也可以是相对陆晶晶
+        // b) 如何使用 import
+             // import
+             // import './modules/1.js'
+             // import {a as aa, b as bb, c as cc} from './modules/1.js';
+             // import * as util './modules/1.js'
+
+            //  只要是export出来的都需要{};
+            //  export default出来的不需要花括号
+
+        // 使用模块 
+            // <script type="model"><\/script>
+        // import 特点
+        // import模块只会导入一次 无论你引入多少次
+        // import './modules/1.js',如果这么用 相当于引入文件
+        // 有提升效果,import会自动提升到顶部首先执行
+        // 导出模块的内容 里面如果有东西更改了 外面也会更改了(比如说里面有setTimeout 2秒后修改了a的值,那么在外面2秒后也可以获取到被修改的a的值 即使只执行一次)不像common规范缓存
+        // import() 类似node里面的require,可以动态引入,默认import语法不能写到if或for循环里面
+        // import('./modules/1.js').then(res=>{
+            // 调用成功后才会执行
+        // })
+        // 优点 1.按需加载/2.可以写在if中/3,里面的路径可以是动态的变量等
+        // 返回值是promise对象
+        Promise.all([ //动态引入
+           import('./modules/1.js'),
+           import('./modules/2.js'),
+        ]).then(([mod1,mod2])=>{
+               console.log(mod1,mod2);
+        })
+        //ES2017 可以结合 async await来用
+        async function main(){
+            const mod1 = await  import('./modules/1.js');
+            const mod2 = await  import('./modules/2.js');
+            const [m1,m2] = await Promise.all([
+                import('./modules/1.js'),
+                import('./modules/2.js'),
+            ])
+            console.log(m1,m2);
+        }
+        //ES6模块化默认是严格模式 use strict    
+        
+    </script>
+    <script type="model">
+        import './modules/1.js';
+    </script>
+</body>
+</html>

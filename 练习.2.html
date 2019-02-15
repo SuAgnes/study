@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Animal(name) {
+            this.name = name;
+            this.show = function () {
+                console.log(`${this.name}Show`);
+                
+            }
+        }
+        Animal.prototype.eat = function (food) {
+            console.log(`${this.name}吃${food}`);
+        }
+        //原型
+        function Cat() {
+            
+        }
+        Cat.prototype = new Animal();
+        let cat = new Cat ();
+        cat.name = '猫';
+        cat.eat('food')
+
+        //构造函数
+
+        function Dog(name) {
+            Animal.call(this);
+            this.name = name ||'dog';
+        }
+        let dog = new Dog();
+        dog.name = '狗';
+        dog.show();//不继承原型
+
+        //实例继承
+
+        function Bear(name) {
+            let instance = new Animal();
+            instance.name = name || 'bear';
+            return instance;
+        }
+        let bear = new Bear();
+        bear.show();
+        bear.eat('food');
+
+        //拷贝继承 //不继承原型
+        function Lion(name) {
+            let animal = new Animal();
+            for (const p in animal) {
+                if (animal.hasOwnProperty(p)) {
+                    Lion.prototype[p] = animal [p];
+                }
+            }
+            Lion.prototype.name = name || 'lion';
+        }
+        let lion = new Lion();
+        lion.show();
+
+        //组合
+        function Cat2(name) {
+            Animal.call(this);
+            this.name = name || 'cat2';
+        }
+        Cat2.prototype = new Animal();
+        let cat2 = new Cat2();
+        cat2.show();
+        cat2.eat('food');
+
+        //寄生
+        function Dog2(name) {
+            Animal.call(this);
+            this.name = name || 'dog2';
+        }
+        (function(){
+            let Super = function () {};
+            Super.prototype = Animal.prototype;
+            Dog2.prototype = new Super();
+        })();
+        let dog2 = new Dog2();
+        dog2.eat('food')
+    </script>
+</body>
+</html>

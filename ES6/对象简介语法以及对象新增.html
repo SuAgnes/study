@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>对象简介语法以及对象新增</title>
+</head>
+<body>
+    <script>
+    // 对象简介语法
+    let name = 'sakura';
+    let age = 18;
+    let json = {
+        name, // name:name
+        age, // age:age
+        show(){
+            return this.name;
+        },
+        showA:()=>{
+            // 不要手贱用箭头函数!!
+            // 这个this会变成window的
+            return this.name;
+        }
+    }
+    console.log(json);
+    console.log(json.show());
+    console.log(json.showA());
+    console.log('------------------------------------------------------');
+    // Object.is() 用来比较两个值是否相等 (肉眼看长得一样的数据)
+    console.log(Object.is(NaN,NaN));
+    console.log(Object.is(+0,-0));
+    console.log('------------------------------------------------------');
+    // Object.assign() 合并对象
+    function ajax(options) {
+       let defaults = {
+           type:'get',
+           header:'',
+           data:{},
+       };
+       let json = Object.assign({},defaults,options);
+    }
+
+    let jsonA={a:1},
+        jsonB={b:2,a:2}, //jsonA.a被jsonB.a覆盖了
+        jsonC={c:3};
+    
+    let jsonObj=Object.assign({},jsonA,jsonB,jsonC); //开头一定要有一个新的,去覆盖新的,不然会覆盖jsonA
+    console.log(jsonObj);
+    console.log(jsonA);
+
+    let arrAssign  = ['apple','banana','orange'];
+    let arrAssign2 = Object.assign([],arrAssign);
+    console.log(arrAssign2);//此时已经复制了一份 修改arrAssign2不会影响arrAssign
+    // 用途 : 复制一个对象/合并参数
+    console.log('------------------------------------------------------');
+
+    //ES2017
+    // Object.keys();
+    // Object.entries();
+    // Object.values();
+
+    let jsonKeys = {
+        a:1,
+        b:2,
+        c:3
+    }
+
+    for (const key of Object.keys(jsonKeys)) {
+        console.log(key);
+    }
+
+    //也可以事先解构
+
+    let {keys, values, entries} = Object;
+    
+    for (const key of keys(jsonKeys)) {
+       console.log(key); //同上
+    } 
+    for (const value of values(jsonKeys)) {
+        console.log(value);
+    }
+    for (const item of entries(jsonKeys)) {
+        console.log(item);
+    }
+    for (const [key,val] of entries(jsonKeys)) {
+        console.log(key, val);
+    }
+    console.log('------------------------------------------------------');
+    //ES2018 ...在对象身上也可以用了
+    let {x,y,...z}={x:1, y:2, a:3, b:4};
+    console.log(x, y, z);
+    let jsonNew={...json}
+    console.log(jsonNew); // 复制json
+    delete jsonNew.showA;
+    console.log(jsonNew); // 已经删除shwo()
+    console.log(json);// show()没有被删除
+    
+    
+    </script>
+</body>
+</html>

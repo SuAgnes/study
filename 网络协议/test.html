@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CORS跨域请求的限制于解决</title>
+</head>
+<body>
+    <!-- <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET','http://192.168.1.40:8887');
+        xhr.send();
+    </script> -->
+
+    <!-- jsonp -->
+    <!-- <script src="http://192.168.1.40:8887">
+    //浏览器是允许在标签上写内容跨域的
+    //这种时候浏览器并不在意服务器是否设置了跨域的头部
+    // jsonp是利用了script标签/img标签/link标签上的src或者是href
+    </script> -->
+
+    <!-- CORS预请求 -->
+    <script>
+        // CORS限制
+        // 跨域的时候默认允许的方法:GET/HEAD/POST
+        // 默认允许的Content-Type
+        // text/plain;multipart/form-data;application/x-www-form-urlencoded
+
+        // 请求头限制
+        // XMLHttpRequestUpload 对象均没有注册任何事件监听器
+        // 请求中没有使用ReadableStream 对象
+
+        fetch('http://localhost:8887/',{
+            method:'PUT',
+            headers:{
+                'X-Test-Cors':'123'
+            }
+        })
+        // 浏览器为什么要提供这些限制呢?
+        // 因为浏览器希望我们在网页里面去进行一些跨域的操作的时候,这些操作可以保证客户端的安全,不允许任何随便的人进入跨域,不允许随便的方法进行跨域,不希望因为一些跨域的请求导致我们某一些数据被恶意的篡改,提供限制后我们可以进行有利的判断,判断这些请求是否需要一个响应
+    </script>
+</body>
+</html>

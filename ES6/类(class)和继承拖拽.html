@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类(class)和继承拖拽</title>
+    <style>
+    .box{
+        position: absolute;
+        top: 0;
+        width: 100px;
+        height: 100px;
+        background: #ccc;
+        text-align: center;
+        line-height: 100px;
+    }
+    .left{
+        left: 0;
+    }
+    .right{
+        right: 0;
+    }
+    </style>
+</head>
+<body>
+    <div id="div1" class="box left">1</div>
+    <div id="div2" class="box right">2</div>
+    <script>
+        //父 普通拖拽
+        class Drag{
+            constructor(id) {
+                this.oDiv =  document.querySelector(id);
+                this.disX = 0;
+                this.disY = 0;
+                this.init();
+            }
+            init() {
+                this.oDiv.onmousedown = function(ev){
+                    this.disX = ev.clientX - this.oDiv.offsetLeft;
+                    this.disY = ev.clientY - this.oDiv.offsetTop;
+
+                    document.onmousemove = this.fnMove.bind(this);
+                    document.onmouseup = this.fnUp.bind(this);
+
+                    //阻止默认事件 (选中文字)
+                    return false;
+                }.bind(this);//矫正this
+            }
+            fnMove(ev) {
+                this.oDiv.style.left = ev.clientX - this.disX + 'px';
+                this.oDiv.style.top = ev.clientY - this.disY + 'px';
+            }
+            fnUp() {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+
+        //子类 限制范围
+        class LimitDrag extends Drag{
+            fnMove(ev) {
+                //父级
+                super.fnMove(ev);
+
+                if(this.oDiv.offsetLeft<=0){
+                    //限制范围 不会拖出框
+                    this.oDiv.style.left = 0;
+                }
+            }
+        }
+        //调用
+        new Drag('#div1');
+        new LimitDrag('#div2');
+    </script>
+</body>
+</html>

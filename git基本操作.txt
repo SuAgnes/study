@@ -1,0 +1,171 @@
+git init 初始化
+git status 检测文件状态(有没有被追踪Untracked)
+GIT四种状态: untracked 未被追踪;
+            modified 表示工作区修改了某个文件但是没有添加到暂存区
+            staged 表示把工作区修改的文件添加到了暂存区但是没有比较到版本库
+            Commited 表示数据被安全的存储在本地库中
+GIT三层结构: working directory 工作区
+            staging index 暂存区
+            git directory(Repository) 版本库
+git add fileName 追踪 (从工作区添加到暂存区)
+git add . 追踪全部本地文件到暂存区
+git commit -m '描述' 提交到版本库
+---------------------------------------------------------------
+告诉git你是谁↓:
+git config --global user.name 名字
+git config --global user.email 邮箱
+---------------------------------------------------------------
+
+git config --list 查看git配置情况
+
+git log 查看提交信息(提交人/邮箱)
+
+提交到版本库的文件不会显示在git status里
+---------------------------------------------------------------
+
+Git撤销操作:
+
+git add . + git commit -m 'msg = git commit -am 'msg'
+例如: git commit -m 'versions 1.0' 提交到版本库
+这时候不能使用 'versions 1.0' 再次提交了 如果还想用这个名字的话 使用↓↓
+git commit--amend 撤销上一次的提交,并将暂存区的文件重新提交 也可以通过这个命令改变版本描述(不改变暂存区内容的情况下)
+
+git checkout -- fileName 编辑器的文件恢复成了修改前的样子(最后一次提交)
+git checkout -- . 撤销恢复全部文件
+
+git reset HEAD fileName 撤销提交到暂存区 （这的HEAD为头指针）
+此处HEAD也可以换为版本号(将相应版本里的文件拉回到暂存区)
+这一步不会影响工作区↑↑,想工作区恢复 需要使用git checkout -- fileName
+Unstaged changes after reset(将改变撤销暂存);
+
+可以通过git log 查看各种版本的版本号 然后通过版本号恢复到某个版本(这也会改变HEAD的指向)
+git reset 版本号(commit后面的) 文件名;
+再用git checkout -- fileName 拉回来
+
+---------------------------------------------------------------
+删除
+git rm fileName:此步操作会把工作区的文件连同暂存区的文件一起被删除
+
+当工作区的文件或者暂存区的文件被修改后,想进行git rm 操作,git会禁止我们删除,起到了一个防止误删除的作用。
+如果想要保留工作区的文件 那么就要用git rm --cached 文件名 来仅仅删除暂存区的文件
+git rm -- cached fileName 在不小心将不需要追踪的文件添加到暂存区后,想删除暂存区的文件但是不想删除工作区的文件很有用
+git rm -f fileName 同时删除工作区和暂存区的文件
+mv fileName newFileName 本地(工作区)重命名
+mv fileName newFileName 工作区和暂存区都重命名
+
+---------------------------------------------------------------
+git branch 查看本地分支
+git branch -a 查看远程分支
+git branch branchName 创建新分支
+git checkout branchName 切换分支
+git branch -d branchName 删除分支 (此操作必须保证当前的分支非想要删除的那个分支)
+git branch -m branchName newBranchName 修改分支名
+git checkout -b branchName 创建分支并切换分支
+---------------------------------------------------------------
+Git指针
+当提交一个版本的时候,就会有一个版本号(V1),这时候有两个指针指向这个版本,一个是master(当前分支指针),一个是HEAD(指向当前分支的最后一个版本)
+当提交了一个新的版本(V2),master指针和HEAD指针都指向了最新一次的提交(V2),V2有一个指针指向V1。这的指针是指（文件中有一块地方保存着其他文件的地址），调用V2的时候可以直接通过V2找到V1的地址，从而调用V1，以达到方便的访问V1的目的，以此类推。
+如果在V2版本上创建了一个分支（D1）的时候，master分支指针依旧会指向V2，新的D1分支指针会指向新的D1分支,当切换到D1分支的时候,head指针会切换到D1上,此时的D1还有一个指针指向V2。
+修改D1分支的时候,D1和head指针也会以此类推到D2。当从D2合并分支到V2的时候，会形成V3分支，V3分支既指向V2分支，又指向D2分支。此时HEAD和master指针指向V3分支。
+---------------------------------------------------------------
+分支合并 
+首先切换到主分支（master）
+git merge branchName 合并分支
+这时候如果branch和master在相同位置有不同的修改,也就是发现了冲突的时候,git会抛出一个让我们来手动解决冲突的错误↓↓。
+automatic merge failed:fix conflicts and then commit result.(自动合并失败:修复冲突，然后提交结果。)
+<<<HEAD到===之间是master分支的内容
+===到>>>branchName 是branchName分支的内容
+然后重新git commit -am 'msg' 提交到暂存区及版本库;
+
+git diff 比较差异(默认比较工作区和暂存区文件的差异) 如果没有差异是不会有任何展示的
+git diff --staged 比较暂存区与版本库之间的差异
+git diff 还可以比较同一个分支中两个不同的版本之间的差异(在版本回退时非常有用)
+版本hash值 最少选择4个 git默认选择7个 建议尽量选择8-10个 这样才能保证唯一性
+git diff branchName 还可以比较两个分支之间的差异
+---------------------------------------------------------------
+储存变更
+比如在branch分支上修改后,切换到master分支,会报一个
+please commit your changes or stash them before you switch branches;(请在切换分支之前提交更改或将其隐藏;)的错误,我们使用
+git stash 暂存工作区的修改,然后git会帮我们自动切换到修改前的状态
+这时切换分支就不会报错了,因为git在进行分支切换的时候,主要改变的是版本库,当工作区有改变的时候,会直接将工作区的改变覆盖到另外一个分支上,从而影响另外一个分支。如果我们使用git stash进行封存,git就会自动将工作区的改变撤销掉,回到修改前的状态(上一次提交后的状态)。
+git stash list 查看当前保存了哪些本地文件
+git stash apply stash@{0} 返回之前用git stash封存的改变
+stash@{0} 里面的0根据提交git stash的次数以此类推
+git stash pop stash@{0} 拉回到暂存区和本地
+此时再执行 git stash list 查看封存的文件时 stash@{0}不见了
+也就是说 git stash pop stash@{0} 是在git stash apply stash@{0}的基础上,增加了一个删除命令。
+也就是说，返回的同时，删除git stash中的这个文件的命令。
+git stash drop stash@{0} 删除封存的修改。
+综上 git stash pop stash@{0} = git stash apply stash@{0} + git stash drop stash@{0}
+
+---------------------------------------------------------------
+远程仓库
+git push 远程仓库地址 (分支:可不填) :推送到远程仓库
+git pull 
+如果使用ssh地址
+在管理员账户使用 ssh-keygen 生成密钥 文档后缀为File的为私钥 后缀为PUB(public的缩写) File为公钥
+然后点击github→setting→SSH→New SSH key→输入标题/添加公钥;
+此时就可以用SSH地址拉取了
+
+推代码到远程仓库:方法1: git push git@github.com:仓库名称(name/xxx.com.git);
+                方法2: git push 仓库地址(https://github.com/name/xxx.com.git)
+                方法2: git remote add 取一个仓库名 git@github.com:仓库名称(name/xxx.com.git);
+
+git remote -v 查看添加的远程仓库
+然后使用 git push github master 推送到远程仓库
+
+git pull 仓库名 分支名(master) 拉取到本地
+---------------------------------------------------------------
+
+在自己的服务器上搭建自己的github仓库
+
+ssh root@服务器
+key fingerprint is continue connecting 秘钥
+are you sure you want to continue connecting(yes/no)
+是否将host的秘钥添加到ssh文件的known_hosts里
+输入远程服务器密码
+然后在远程服务器上创建一个git文件夹,专门保存项目。
+然后在git文件夹下创建一个项目仓库(通常在名字后面加上.git来表明这是一个git的仓库)
+进入后缀为.git的文件夹→git init --bare 初始化一个裸露的仓库
+(git init –bare 生成的是一个裸仓库，是没有工作区的，只会记录git提交的历史信息，git log一下是可以看到各个版本信息的，但是没办法进行版本回退或者切换分支的操作:当我们想在这个文件目录下进行一些git操作的时候会出现报错： This operation must be run in a work tree。这个操作必须在工作树上面进行。)
+
+然后可以在想要保存到服务器git仓库的文件夹下进行:
+git push ssh://root@ip/路径
+
+进入到web根目录
+git clone 地址/git pull 地址 都可以拉取代码
+将代码拖到Nginx目录下
+然后改变Nginx目录下默认访问的地址,就可以将项目部署到网站上
+git reset --hard HEAD 撤销本地改变 回到之前的状态,HEAD可以是版本号
+git reset 版本号 :直接回退版本
+t reset --hard 版本号 :会将暂存区和工作区中的文件都强行回退到当时版本库中相应的版本
+t reset --mixed 版本号 :仅仅将版本库和暂存区回退到了这个版本号的状态,而工作区不受影响
+t reset --soft 版本号 :将版本库回退到了这个版本号的状态,而工作区和暂存区不受影响
+
+---------------------------------------------------------------
+git ssh免密登录
+
+在本地文件夹使用 ssh-copy-id root@服务器ip : 将本地的ssh复制一份然后保存到了远程服务器上的authorized_keys文件中
+git fetch 仓库名 分支名 (origin master);
+git merge origin/master(远程合并到本地)
+
+---------------------------------------------------------------
+git help
+如果有一些文件不想让git对它追踪
+touch .gitignore : 在项目目录下建立一个 .gitignore文件
+vim .gitignore 编辑这个文件
+然后把想忽略的文件添加到cmd命令行
+或者可以 index.* :忽略所有以index.为开头的文件(支持glob规则)
+也可以在里面加上.gitignore 让他忽略.gitignore文件
+glob规则:
+    (*号)匹配零或多个任意字符
+    [abc]匹配任何一个列在方括号中的字符
+    (?号)只匹配一个任意字符
+    [0-9]/[a-z]匹配范围
+
+已经长传到暂存区/版本库的想忽略的文件,可以:
+git rm index.html --cached 删除暂存区的文件
+任何再提交 git commit -m 'msg 提交↑的操作:这时,提交的还是暂存区的文件,本地仍然是改变这个index.html,这个改变并没有提交到暂存区,更没有到版本库
+只有将暂存区里相应文件删除后,忽略才生效
+
+git help 命令名 (例git help add):将弹出想要查找的命令的文档

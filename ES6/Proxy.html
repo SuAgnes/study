@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Proxy</title>
+</head>
+<body>
+    <script>
+
+        // Proxy:代理
+        // 作用:比如vue中拦截/预警/上报/扩展功能/统计/增强对象等等
+        // Proxy是设计模式的一种 代理模式
+        // 语法: new Proxy(target, handler);
+        // 语法: new Proxy(被代理的对象, 对代理对象做什么操作);
+
+        // {
+        //     set(){}, // 设置的时候干的事情
+        //     get(){}, // 获取干的事情
+        //     deletePropetry(){}, //删除
+        //     has(){}, //是否有某个东西 xxx in obj
+        //     apply(){}, //调用函数处理
+        // }
+
+        let obj = {
+            name:'sakura',
+        }
+        let newObj = new Proxy(obj,{
+            get(target,property){
+                // console.log(target,property);
+                //TODO
+                // console.log(`您访问了${property}属性`);
+                if(property in target){
+                    return target[property];
+                }else{
+                    console.warn('(#^.^#)')
+                    // throw new ReferenceError('没有这个属性');
+                }
+            }
+        });
+
+        console.log(newObj.name);
+        console.log(newObj.age);
+
+        const DOM = new Proxy({},{
+            get(target,property){
+                return function(attr={},...children){
+                    const el = document.createElement(property);
+                    //添加属性
+                    for (const key of Object.keys(attr)) {
+                        el.setAttribute(key,attr[key]);
+                    }
+                    //添加子元素
+                    for (let child of children) {
+                        if(typeof child == 'string'){
+                            child = document.createTextNode(child);
+                        }
+                        el.appendChild(child);
+                    }
+                    return el;
+                }
+            }
+        })
+        let oDiv = DOM.div({id:'div1',class:'a'},'我是div','呵呵',
+        DOM.a({href:'http://www.baidu.com'},'去百度'),
+        DOM.li({},'1'),
+        DOM.li({id:'li'},'2'))
+        window.onload = function() {
+            document.body.appendChild(oDiv);
+        }
+    </script>
+</body>
+</html>

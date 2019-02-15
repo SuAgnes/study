@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Animal(name) {
+            this.name = name;
+            this.show = function () {
+                console.log(`${this.name}Show`);
+            }
+        }
+        Animal.prototype.eat = function (food) {
+            console.log(`${this.name}吃${food}`);
+        }
+
+        //原型
+
+        function Cat() {
+            
+        }
+        Cat.prototype = new Animal();
+        Cat.prototype.name = 'cat';
+        let cat = new Cat();
+        cat.show();
+        cat.eat('food');
+        cat.name = '猫';
+        console.log(cat);
+
+        //构造函数
+
+        function Dog(name) {
+            Animal.call(this);
+            this.name = name || 'dog';
+        }
+        let dog = new Dog();
+        dog.name = '狗';
+        dog.show();
+        console.log(dog);
+
+        //实例继承
+
+        function Lion(name) {
+            let instance = new Animal();
+            instance.name = name || 'lion';
+            return instance;
+        }
+        let lion = new Lion();
+        lion.name = '狮子';;
+        lion.show()
+        lion.eat('food');
+        
+        //拷贝继承
+
+        function Bear(name) {
+            let animal = new Animal();
+            for (const p in animal) {
+                if (animal.hasOwnProperty(p)) {
+                    Bear.prototype[p] = animal[p]
+                }
+            }
+            Bear.prototype.name = name || 'bear';
+        }
+
+        let bear = new Bear();
+        bear.name = '熊';
+        bear.show();
+
+        //组合继承
+
+        function Cat2(name) {
+            Animal.call(this);
+            this.name = name || 'cat2'
+        }
+        Cat2.prototype = new Animal();
+        Cat2.prototype.name = 'cattt2';
+
+        let cat2 = new Cat2();
+        cat2.name = '猫2';
+        cat2.show();
+        cat2.eat('food');
+
+        //寄生
+        function Dog2(name) {
+            Animal.call(this);
+            this.name = name || 'dog2';
+        }
+        (function () {
+            let Super = function () {};
+            Super.prototype = Animal.prototype;
+            Dog2.prototype = new Super();
+            Dog2.prototype.name = 'dog22';
+            Dog2.prototype.constructor = Dog2;
+        })();
+        let dog2 = new Dog2();
+        dog2.name = '狗子';
+        
+        dog2.show();
+        dog2.eat('food');
+        console.log(dog2);
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Set-WeakSet</title>
+</head>
+<body>
+    <script>
+    // set数据结构:类似数组,但是里面不能有重复的值
+    // 用法:
+
+    let setArr = new Set(['a','b','c','a']);
+    console.log(setArr); //Set(3) {"a", "b", "c"};
+    console.log('--------------------------------------------------');
+    
+    let setArr2 = new Set();
+    setArr2.add('a'); //添加
+    setArr2.add('b'); 
+    setArr2.add('c'); 
+    console.log(setArr2);
+    console.log('--------------------------------------------------');
+    
+    setArr2.delete('b');
+    console.log(setArr2);
+    console.log('--------------------------------------------------');
+
+    console.log(setArr2.has('b')); //false
+    console.log(setArr2.has('a')); //true
+    console.log('--------------------------------------------------');
+    
+    console.log(setArr2.size);//2 与数组的length类似
+    console.log('--------------------------------------------------');
+    
+    setArr2.clear(); //清空所有
+    console.log(setArr2); //Set(0) {}
+    console.log('--------------------------------------------------');
+    
+    // 循环
+    // for...of
+
+    let setArrFor = new Set(['a','b','c','d','e','f','g']);
+    for (const item of setArrFor.keys()) {
+        // Object.keys() 方法会返回一个由一个给定对象的自身可枚举属性组成的数组
+        console.log(item);
+    }
+    console.log('--------------------------------------------------');
+
+    for (const item of setArrFor.values()) {
+        //和values没区别 什么都不加默认是values
+        console.log(item);
+    }
+    console.log('--------------------------------------------------');
+
+    for (const item of setArrFor.entries()) {
+        console.log(item);
+    }
+    console.log('--------------------------------------------------');
+    
+    for (const [key,value] of setArrFor.entries()) {
+        console.log(key, value);
+    }
+    console.log('--------------------------------------------------');
+    
+    setArrFor.forEach((value,index,arr)=>{
+        console.log(value,index); //推荐做法
+    })
+    console.log('--------------------------------------------------');
+
+    let setArrAdd = new Set().add('a').add('b').add('c');
+    console.log(setArrAdd); //Set(3) {"a", "b", "c"}
+    console.log('--------------------------------------------------');
+    
+    // 数组去重
+
+    let arr = [1,2,3,4,5,5,2,2,3,4,5,6,7];
+    let sArr = [...new Set(arr)];
+    console.log(sArr);
+    console.log('--------------------------------------------------');
+
+    // set数据结构变成数组 [...set]
+    // 想让set使用数组的map或filter
+
+    let setMap = new Set([1,2,3]);
+    let setMap2 = new Set([...setMap].map(val=>val*2));
+    console.log(setMap2);
+    let setFilter = new Set([1,2,3,4,5,6,7]);
+    let setFilter2 = new Set([...setFilter].filter(val=>val%2 !== 0));
+    console.log(setFilter2);
+    console.log('--------------------------------------------------');
+   
+    // 官方说法 :set 里面存的应该是一个数组
+    // 但是存对象也能成功
+    // 不过数组和对象应该是两个东西 所以官方提供了WeakSet();
+    let setJson = new Set();
+    let json = {
+        a:1,
+        b:2
+    };
+    let json2 = {
+        a:1,
+        b:2
+    };
+    setJson.add(json).add(json2);
+    console.log(setJson);
+    
+    // let setJson2 = new Set({
+    //     a:1,
+    //     b:2
+    // });
+    //这种形式不行,add()的话没关系,但是set里面必须是[]形式→ new Set([]);
+    // console.log(setJson2);
+    
+    // new WeakSet({});存储json
+    let weakSet = new WeakSet();
+    // 经确认,初始往↑去添加东西是不行的,add()可以,而且这种写法不靠谱
+    // WeakSet没有size
+    // 总结 使用Set(),但缺点是key和value一样
+    // WeakSet 没有clear() 也没有size
+    // 有add()/has()/delete()
+    </script>
+</body>
+</html>
