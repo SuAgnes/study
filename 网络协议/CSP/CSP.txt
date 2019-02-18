@@ -4,3 +4,4 @@ Content-Security-Policy: 内容安全策略
 
 default-src限制全局
 制定资源类型:connect-src/img-src/font-src/manifest-src/media-src/style-src/script-src/frame-src等
+基本上网页内从外链加载的资源都可以进行一个资源限制

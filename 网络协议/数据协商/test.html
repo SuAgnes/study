@@ -14,9 +14,12 @@
     </form>
     <form action="/form" method="POST" enctype="multipart/form-data">
         <!-- 代表这个请求有多个部分 -->
+        <!-- 有时候 通过表单上传文件时,必须把文件单独拆出来,文件不能作为字符串进行传输,要作为二进制的数据进行传输 -->
         <input type="text" name="name" id="">
         <input type="password" name="password" id="">
         <input type="submit" value="multipart">
     </form>
+
+    <!-- Network里Preserve log:页面跳转后也会把之前的http请求信息打印上 -->
 </body>
 </html>
