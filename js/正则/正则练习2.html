@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var str = '正则表达式';
+        var userInput = '正则';
+        var pattern1 = new RegExp(userInput);
+        console.log(
+            pattern1.test(str)
+            + "/" +
+            pattern1.exec(str)
+        );
+        var str2 = 'html,css,js';
+        var userInput2 = ',js';
+        var pattern2 = new RegExp(userInput2);
+        console.log(pattern2.test(str2) + '/' + pattern2.exec(str2));
+
+        var str3='1.html';
+        var pattern3=/\./;
+        console.log(pattern3.exec(str3));
+        
+        var str4 = '/[a\nb]/';
+        var pattern4=/\/\[a\nb\]\//
+        console.log(pattern4.exec(str4));
+        
+    </script>
+</body>
+
+</html>

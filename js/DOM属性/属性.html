@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            // HTML属性有1:html固有的属性property和自定义属性Attribute
+            //浏览器已经绑定好的属性叫固有属性,例如className,childNodes,children等
+            let inp=document.getElementById('inp');
+            console.log(inp);
+            console.log(inp.attributes);
+            console.log(inp.attributes.getNamedItem('xxx').nodeValue);
+            console.log(inp.nodeName);
+            
+            // attributes属性返回指定节点的属性集合;getNameItem()方法可返回指定的属性节点
+            //通过↑↑这个方法访问固有属性控制台会报错
+            //换句话说,只要固有属性没有在div上显示定义的话,我们是不能通过以上这种方法访问的
+            console.log(inp.attributes.getNamedItem('id').nodeValue);
+            //但是定义了的话就可以↑↑
+            console.log(inp.attributes.removeNamedItem('yyy'));
+            console.log(inp.attributes);//此时yyy已经被删除了
+
+            //创建新属性
+            let attr=document.createAttribute('data-title');//创建属性
+            attr.value='ddd';
+            inp.attributes.setNamedItem(attr);
+            
+        } 
+    </script>
+ <input type="text" id="inp" xxx="a" Yyy="b" Title="warp" Title="warps">
+ <!-- 即使在html中大写属性名 在浏览器中属性名也是小写 -->
+</body>
+
+</html>

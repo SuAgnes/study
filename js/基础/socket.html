@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>WebSocket Echo Client</title>
+    </head>
+    
+    <body>
+        <div>
+            <input type = "button" id="upload" name ="testSocketSend" value = "上传" /></div>
+            <input type = "button" id="download" value = "下载" /></div>
+            <div id="output">
+        </div>
+        <!-- <script>
+            (function(win) {
+                var p = document.querySelector('div');
+                var ws = new WebSocket('ws://localhost:81');
+                ws.onopen=function(e){
+                    var data = {
+                        type: 1,
+                        uuid: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+                        info: {
+                            task:[1,3,2,3,4],
+                            a:{a:{a:'a'},b:'b'}
+                        }
+                    }
+                    ws.send(JSON.stringify(data));
+                }
+                ws.onmessage=function(e){
+                    var data = e.data.split(': ')[1];
+                    data = JSON.parse(data);
+                    console.log(data);
+                }
+            })(window)
+        </script> -->
+        <script src="FileTransfer.js"></script>
+        <script>
+            window.onload = function() {
+                file = new FileTransfer();
+                file.init()
+            }
+        </script>
+    </body>
+</html>
+

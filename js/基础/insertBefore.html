@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            // insertBefore可以添加节点到任何位置;
+            let dUl=document.getElementById('ul');
+            let txt=document.createTextNode('4');
+            let liNew=document.createElement('li');
+            liNew.appendChild(txt);
+            let li2=dUl.children.item(1);
+            // let returnNode=dUl.insertBefore(liNew,li2);//元素,位置,如果要插入到最后(同appendChild一样,那么第二个参数传null就可以)
+       dUl.insertBefore(liNew,dUl.firstElementChild);//添加到第一个节点的前面
+       dUl.insertBefore(liNew,dUl.lastElementChild);//添加到最后一个节点的前面
+       
+        } 
+    </script>
+    <ul id="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</body>
+
+</html>

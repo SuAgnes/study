@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类数组对象NodeList</title>
+    <script>
+        window.onload = function () {
+            //NodeList对象的特点
+            //NodeList是一种类数组对象,用于保存一组有序的节点。
+            //可以通过方括号语法来访问NodeList的值,有item方法与length属性
+            //它并不是Array的实例,没有数组对象的方法
+
+            let oUl = document.getElementById('box');
+            let aNodes = box.childNodes;
+            console.log(aNodes);
+            console.log(aNodes[1]);//  <li>节点一</li>
+            console.log(aNodes.item(1));// <li>节点一</li>
+
+            function mackArray(nodeList) {
+                //方法一
+                // let arr=[];
+                // for (let i = 0,len=nodeList.length; i < len; i++) {
+                //     arr.push(nodeList[i]);
+                // }
+                // return arr;
+
+                //方法二
+                // return Array.prototype.slice.call(nodeList);//也可以将类数组转化为数组
+                //但是在低版本IE上运行有问题↑↑
+
+                //使用两种方法兼容
+                let arr = null;
+                try {
+                    return Array.prototype.slice.call(nodeList);//也可以将类数组转化为数组
+                } catch (error) {
+                    arr = [];
+                    for (let i = 0, len = nodeList.length; i < len; i++) {
+                        arr.push(nodeList[i]);
+                    }
+                    return arr;
+                }
+            }
+            let aNewNodeList = mackArray(aNodes);
+            aNewNodeList.push('<li>节点四</li>');
+            console.log(aNewNodeList);//__proto__:Array();原型对象已经变成Array
+        }
+    </script>
+</head>
+
+<body>
+    <ul id="box">
+        <li>节点一</li>
+        <li>节点二</li>
+        <li>节点三</li>
+    </ul>
+</body>
+
+</html>

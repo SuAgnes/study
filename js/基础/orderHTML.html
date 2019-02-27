@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //orderHTML返回调用它的元素及所有子节点的HTML标签。
+        //IE4+、Safari4+、Chrome、Opera8+、Firefox8+
+        window.onload = function () {
+            let dContent=document.getElementById('content');
+            console.log(content.outerHTML);//与innerHTML的区别是outerHTML包含最外面的这层
+            console.log(content.innerHTML);
+            content.outerHTML="<p>这个节点会把div一起覆盖掉</p>";
+            content.outerHTML="<p>content已经被覆盖掉 所以这一步不会有任何变化</p>";// 'content' is not defined
+            console.log(content.outerHTML);//此时已经找不到content了
+            
+        } 
+    </script>
+    <div id="content">
+        <p>this is a <strong>paragraph</strong>with a list following it.</p>
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </div>
+</body>
+
+</html>

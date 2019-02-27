@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            //cloneNode()
+            //创建节点的拷贝,并返回该副本
+            //节点的拷贝要有父节点,如果没有父节点,要通过appendChild()/insertBefore()/replaceChild()等方法对其进行添加.
+            let dUl=document.getElementById('ul');
+            let newNode=dUl.cloneNode(true);//这个方法接受一个布尔值,默认为false,如果为true的话就进行深度拷贝,会一同复制下面所有的子节点.
+            console.log(newNode);
+            document.body.appendChild(newNode);
+            console.log('-----------------');
+            let dLi = document.getElementById('li');
+            let newLi = dLi.cloneNode();
+            dUl.appendChild(newLi)
+        } 
+    </script>
+    <ul id="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <ul>
+        <li id="li">a</li>
+        <li>b</li>
+        <li>c</li>
+    </ul>
+</body>
+
+</html>

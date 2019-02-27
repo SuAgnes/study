@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类数组对象NamedNodeMap</title>
+    <script>
+        window.onload = function () {
+            //类数组对象NamedNodeMap表示HTML元素的集合
+            //这个对象通过访问ele.attributes这个属性得到
+            //它存储了元素节点的特性attributes的集合
+            let oUl=document.getElementById('box'),
+                aAttrs=oUl.attributes;
+            console.log(aAttrs);
+            // 它与HTMLCollection和NodeList不同的是它返回的是一个类似于对象形式的结果。
+            console.log(aAttrs.length);
+            console.log(aAttrs[0]);//不同浏览器显示不同
+            console.log(aAttrs.item(1));//不同浏览器显示不同
+        }
+    </script>
+</head>
+
+<body>
+    <ul id="box" data-url="index.html" node-action="submit">
+        <li>节点一</li>
+        <li>节点二</li>
+        <li>节点三</li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //正则表达式是由以下两种字符组成的文字模式
+        //1.普通字符(例如26个字母,数字等)
+        //2.特殊字符(有特殊含义的,例如.\等)
+        // 说明:该模式描述在查找文字主题时待匹配的一个或多个字符串,正则表达式作为一个模板,将某个字符串模式与所搜索的字符串进行匹配
+        // 正则匹配到的内容一定要是字符串中的内容
+        // 默认情况下区分大小写
+
+        let str = 'i love js';
+        let pattern = /js/;
+        //text
+        console.log('pattern.test(str):', pattern.test(str));//true
+        //exec 如果匹配到了就把匹配到的字符串扔到数组中返回
+        //匹配不到会返回null
+        console.log('pattern.exec(str):', pattern.exec(str));//true
+
+        //模式修饰符
+        // i:ignoreCase 忽略大小写
+        // g:global 全局匹配
+        // m:multiline 多行匹配
+        //这三个修饰符可以随便组成
+        let patternI = /JS/i;
+        console.log('忽略大小写匹配字符I:', patternI.test(str));
+
+        //构造函数写法
+
+        let msg = 'i love Js';
+        let patternFn = new RegExp('js', 'im');//两个参数,第二个传修饰符
+        console.log('构造函数test:', patternFn.test(msg));
+        console.log('构造函数exec:', patternFn.exec(msg));
+
+        //根据用户给出的字段匹配
+        let user = 'love';
+        let userPattern = new RegExp(user, 'i');
+        console.log('根据用户匹配:', userPattern.test(msg));
+    </script>
+</body>
+
+</html>

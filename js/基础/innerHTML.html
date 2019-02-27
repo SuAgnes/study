@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //使用innerHTML的限制
+        // IE/Opera会将所有的标签转化为大写形式、Safari/Chrome/Firefox会原原本本返回HTML 包括空格和缩进。
+        // IE6~IE8要求字符串的最左边不能出现空白，IE6~IE8会自动移除它
+        // 在大多数浏览器中，通过innerHTML插入script这个标签，不会对script标签进行脚本执行操作，IE8及更早版本，是唯一能在这种情况下执行脚本的浏览器
+        // ↑↑（但是必须满足一些条件：1、必须为script标签添加defer属性。2、script标签要在有作用域的元素之后，这是微软提出的概念，因为script被认为是无作用域的元素/在页面中看不到的元素，与style或注释元素类似，如果通过innerHTML插入的是无作用域的元素，那么在解析前就会删除这个元素）。
+        // 大多数浏览器都支持以直观的方式通过innerHTML插入meta/style/link等元素，但在IE8及更早版本中，style也是一个没有作用域的元素，因此，必须前置一个有作用域的元素。
+
+        window.onload = function () {
+            let dContent = document.getElementById("content");
+            let str = "<input type='hidden'><script defer>console.log(123)<\/script>";
+            // let str="<script>console.log(123)<\/script>";
+            dContent.innerHTML = str;
+
+            let dStyle = document.getElementById('addStyle');
+            let sAddStyle = "<style type=\"text/css\">body{background-color:pink;}</style>";
+            dStyle.innerHTML = sAddStyle;
+        } 
+    </script>
+    <div id="content"></div>
+    <div id="addStyle"></div>
+    <!-- <input type="hidden">这个标签在页面中是不显示的 可以作占位符 -->
+</body>
+
+</html>

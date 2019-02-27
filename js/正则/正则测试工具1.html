@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正则表达式测试工具</title>
+    <style>
+    #regexp{
+        margin: 100px auto;
+        width: 650px;
+        font-size: 14px;
+    }
+    #regexp .title{
+        color: #777;
+        font-size: 24px;
+        text-align: center;
+    }
+    #regexp .textbox{
+        padding: 5px;
+        width: 538px;
+        height: 150px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        /* 不可通过拖动改变大小↓ */
+        resize: none;
+    }
+    #regexp .textfidld{
+        padding: 5px;
+        width: 215px;
+        border: 1px solid #ccc;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="regexp">
+        <h1 class="title">正则表达式测试工具</h1>
+        <textarea name="" id="userText" class="textbox" placeholder="在此输入待匹配的文本"></textarea>
+        <p>
+            正则表达式:
+            <input type="text" name="" id="userRegExp" class="textfield" placeholder="在此输入正则表达式">
+            <input type="checkbox" name="userModifier" value="i">忽略大小写
+            <input type="checkbox" name="userModifier" value="g">全局匹配
+            <input type="checkbox" name="userModifier" value="m">多行匹配
+            <input type="button" id="matchingBtn" value="测试匹配">
+        </p>
+        <p>
+            匹配结果:
+        </p>
+        <textarea name="" id="matchingResult" class="textbox" disabled></textarea>
+    </div>
+    <script>
+        let userText=document.getElementById('userText'),
+        userRegExp=document.getElementById('userRegExp'),
+        userModifiers=document.getElementsByName('userModifier'),
+        matchingBtn=document.getElementById('matchingBtn'),
+        matchingResult=document.getElementById('matchingResult'),
+        pattern,Modifiers;
+
+        matchingBtn.onclick=function(){
+            if(!userText.value){
+                alert('请输入待匹配的正则表达式文本');
+                userText.focus();
+                return;
+            }
+            if(!userRegExp.value){
+                alert('请输入待匹配的正则表达式');
+                userRegExp.focus();
+                return;
+            }
+            Modifiers='';
+            for (let i = 0; i < userModifiers.length; i++) {
+                if(userModifiers[i].checked===true){
+                    Modifiers+=userModifiers[i].value;
+                }
+            }
+            pattern=new RegExp(userRegExp.value,Modifiers);
+            matchingResult.value=pattern.exec(userText.value)||'(没有匹配)';
+        }
+
+    </script>
+</body>
+
+</html>

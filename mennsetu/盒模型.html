@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>盒模型</title>
+</head>
+<body> 
+    <script>
+        // 标准模型和IE模型的宽度曲线不同
+        // IE模型的宽高是计算border和padding的
+        // box-sizing:content-box; 标准(默认)
+        // box-sizing:border-box;   IE
+
+        // JS设置盒模型对应宽高:dom.style.width/height;(只能取内联样式);
+        // dom.currentStyle.width/height (只有IE支持)渲染后的宽和高
+        // window.getComputedStyle(dom).width/height 所有浏览器支持
+        // dom.getBoundingClientRect().width/height;
+    </script>
+</body>
+</html>

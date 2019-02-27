@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            // type:事件的类型;
+            // sreElement/target:事件源,就是发生事件的元素
+            // cancelBubble:布尔属性,设为true的时候,将停止事件进一步起泡到包容层次的元素:(e.cancelBubble=true;相当于e.stopPropagation)
+            // returnValue:布尔属性,设置为false的时候可以阻止浏览器默认的时间动作(e.returnValue=false,相当于e.preventDefault())
+
+            let parent = document.getElementById('parent');
+            let eventFn = function (event) {
+                console.log("srcElement",event.srcElement);
+                console.log("target",event.target);//child
+                console.log(event.currentTarget);//parent
+                //点击child,事件在parent上
+                //target 点击谁谁就是target 事件源
+                // currentTarget,事件绑定在谁身上,就是指向谁
+            }
+            parent.addEventListener('click', eventFn);
+
+            //阻止浏览器默认行为
+            let link = document.getElementById('a');
+            a.addEventListener("click", function (event) {
+                // event.preventDefault();
+                event.returnValue = false;
+                alert('已阻止浏览器默认行为(a标签跳转)');
+            })
+
+            //阻止取消事件冒泡或者捕获 e.stopPropagation
+            let parent2 = document.getElementById('parent2');
+            let child2=document.getElementById('child2');
+            let eventStop = function (event) {
+                // event.cancelBubble=true;
+                event.stopPropagation();//阻止冒泡
+                console.log(event.currentTarget);
+            }
+            parent2.addEventListener("click", eventStop);//被阻止了
+            child2.addEventListener("click",eventStop);
+
+            //event.clientY/pageY/screenY
+            // clientY就是指浏览器顶部底边到鼠标位置,不计算滚动轴距离
+            // pageY就是指浏览器顶部底边到鼠标位置,但它计算滚动轴的距离
+            // screenY 屏幕顶部到鼠标的位置
+
+            let height=document.getElementById('height');
+            height.addEventListener("click",function(event){
+                alert('clientY:'+event.clientY+";"+"pageY:"+event.pageY+";"+"screenY:"+event.screenY);
+            })
+        } 
+    </script>
+    <div id="parent">
+        <div id="child">child</div>
+    </div>
+    <!-- 分割线 -->
+    <a href="http://www.baidu.com" id="a">阻止浏览器默认行为</a>
+    <!-- 分割线 -->
+    <div id="parent2">
+        <div id="child2">阻止事件冒泡,所以parent2没有被打印</div>
+    </div>
+    <!-- 分割线 -->
+    <div id="height" style="height:1000px;background:skyblue;"></div>
+</body>
+
+</html>

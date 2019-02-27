@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //遍历节点
+        window.onload = function () {
+            let str = '';
+            function travel(space, node) {
+                if (node.tagName) {
+                    //如果当前节点是标签,不是空的,就拼接字符串 
+                    str += space + node.tagName + '<br />';
+                }
+                let len = node.childNodes.length;//保存当前节点的子节点的个数
+                for (let i = 0; i < len; i++) {//遍历节点的子节点
+                    travel(space + '| - ', node.childNodes[i]);
+                }
+            }
+            travel("", document);
+            document.write(str);
+        }
+    </script>
+</head>
+
+<body>
+    <form>
+        <input type="button" id="btn" name="btn" value="Click Me">
+    </form>
+</body>
+
+</html>

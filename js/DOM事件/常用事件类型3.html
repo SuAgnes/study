@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var eventUtil = {
+            addHandler: function (ele, type, handler,bool) {
+                bool=bool||false;
+                // chrome/Firefox/IE9+ addEventListener
+                // IE8- attachEvent
+                if (ele.addEventListener) {
+                    ele.addEventListener(type, handler, bool);
+                } else if (ele.attachEvent) {
+                    ele.attachEvent("on" + type, handler);
+                }
+            },
+            removeHandler: function (ele, type, handler,bool) {
+                bool=bool||false;
+                // chrome/Firefox/IE9+ removeEventListener
+                // IE8- detachEvent
+                if (ele.removeEventListener) {
+                    ele.removeEventListener(type, handler, bool);
+                } else if (ele.detachEvent) {
+                    ele.detachEvent("on" + type, handler, false);
+                }
+            },
+            getTarget: function (event) {
+                return event.target || event.srcElement;
+            },
+            preventDefault: function (event) {
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                }
+            },
+            stopPropagation: function (event) {
+                if (event.stopPropagation) {
+                    event.stopPropagation();
+                } else {
+                    event.cancelBubble = true;
+                }
+            },
+            //只适用于keypress
+            getCharCode:function(event){
+                 if(typeof event.charCode=="number"){
+                     return event.charCode;
+                 }else{
+                     return event.keyCode;
+                 }
+            }
+        }
+        eventUtil.addHandler(window, "load", function (e) {
+            console.log('load');
+            let inp=document.getElementById('inp');
+            //任意键触发
+            eventUtil.addHandler(inp,"keydown",function(event){
+                console.log("keydown+keyCode:",event.keyCode);//键码
+            })
+            eventUtil.addHandler(inp,"keypress",function(event){
+                console.log("keypress+charCode:",event.charCode);//ASCII码
+                // 在keypress中尽量不要用keyCode,因为在keypress中keyCode的值是极其不稳定的,有时候可能是0,有时候可能是键码等
+            })
+            //中文输入法的时候keypress不会执行,keydown会
+            // keypress与keydown的keyCode不一样
+
+            eventUtil.addHandler(inp,"textInput",function(event){
+                 console.log(event.data);//打印出输入的内容,可汉字,一次输出一个字
+            })
+
+            // Dom
+            let ul=document.getElementById('ul');
+            let ul2=document.getElementById('ul2');
+            let li=document.createElement('li');
+            
+            //document中任意元素被删除触发
+            eventUtil.addHandler(document,"DOMNodeRemoved",function(event){
+                console.log('inp被删除了');
+            })
+            //document中任意元素被添加触发
+            eventUtil.addHandler(document,"DOMNodeInserted",function(event){
+                console.log('DOM上添加了一个新的元素');
+            })
+            
+            //document结构中发生任何变化都会触发
+            eventUtil.addHandler(document,"DOMSubtreeModified",function(event){
+                console.log('DOM结构发生变化了');
+            })
+            //从文档中移除之前被触发
+            //如果被移除的节点包含子节点，那么在其所有子节点以及这个被移除的节点上会相继触发DOMNodeRemovedFromDocument事件
+            //这个事件不会冒泡，目标target指向被移除的节点
+            eventUtil.addHandler(ul,"DOMNodeRemovedFromDocument",function(event){
+                console.log('从文档中移除之前被触发了');
+            })
+
+            //从文档中添加之前被触发
+            eventUtil.addHandler(li,"DOMNodeInsertedIntoDocument",function(event){
+                console.log('从文档中添加之前被触发了');
+            })
+            document.body.removeChild(ul);
+            ul2.appendChild(li);
+        })
+        //HTML5新增事件
+            
+            //DOMContentLoaded load
+            //在DOM树加载完成之后就会触发,不理会图像/JavaScript文件/css文件或其他资源是否已经下载
+            //DOMContentLoaded速度一定快于load
+            eventUtil.addHandler(document,"DOMContentLoaded",function(event){
+                console.log('DOMContentLoaded快于load');
+            })
+
+            // readystatechange 支持IE/Firefox/Opera,提供文档或者元素加载过程,但是很难预料与load事件一起使用的时候
+            // 1.document.readyState==uninitialized 尚未初始化
+            // 2.loading 对象正在加载数据
+            // 3.interactive 可以操作对象,但还没有完全加载
+            // 4.对象已经加载完毕
+
+            // 执行过程,但是不一定全部执行,所以非常情绪化,并且很难预料与load谁快谁慢
+            eventUtil.addHandler(document,"readystatechange",function(event){
+                console.log('readystatechange执行啦 ~~');
+            })
+
+            //hashchange事件 一定是给window添加,监听#号后面的变化
+            eventUtil.addHandler(window,"hashchange",function(event){
+                console.log('老地址',event.oldURL);
+                console.log('新地址',event.newURL);
+            })
+    </script>
+</body>
+<input type="text" name="" id="inp">
+<ul id="ul">
+    <li>li1</li>
+    <li>li2</li>
+    <li>li3</li>
+</ul>
+<ul id="ul2">
+    <li>li1</li>
+    <li>li2</li>
+    <li>li3</li>
+</ul>
+</html>

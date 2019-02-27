@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>String对象中与正则相关的方法之search,match和split</title>
+</head>
+
+<body>
+    <script>
+        let str = 'html js';
+        let pattern = /js/;
+        console.log(str.search(pattern)); //返回匹配到的位置 -1为没匹配到
+        // search有没有全局匹配都无所谓,只要找到一个就立刻返回
+        console.log(str.search('js')); //传字符串的话,search会先将字符串通过构造函数转化为正则,再进行匹配
+
+        let str2 = 'js js js';
+        console.log(str2.match(pattern));//和extc相同,不同的时候是全局匹配的时候↓
+        let pattern2 = /(j)s/g;
+        console.log(str2.match(pattern2)); //一次性全部抓出来,但是分组中的东西没有了
+
+        //match:非全局/g匹配的情况下才会返回分组中匹配到的内容,全局匹配只能匹配到所有匹配到的字符
+        //exec:无论是否全局匹配都会返回分组中匹配到的内容,都只会返回当前匹配到的一个内容,而不是全部返回,但是在全局匹配的时候是可以继续匹配直到找不到为止
+
+        // \m的用处
+
+        // \m只有在首尾才能体现出用处,不然体现不出来(要和g搭配使用)
+
+        //尾
+        let endStr = '1.js\n2.js\n3.js';
+        let endPattern = /js$/mg;
+        console.log(endStr);
+        console.log(endStr.match(endPattern));
+
+        //首
+        let startStr = 'js1\njs2\njs3';
+        let startPattern = /^js/mg;
+        console.log(startStr);
+        console.log(startStr.match(startPattern));
+
+        //split();
+        let splitStr = 'html,css,js';
+        let splitPattern = /,/;
+        console.log(splitStr.split(splitPattern));
+        //↑↓相同
+        console.log(splitStr.split(','));
+
+        //适用正则的情况
+        let splitStrMsg = ' html ,  css  , js ';
+        let splitPatternMsg = /,/;
+        console.log(splitStrMsg.split(splitPatternMsg)); //这样会有很多空格,这时候就需要使用正则了
+        let splitPatternMsg2 = /\s*,\s*/;
+        console.log(splitStrMsg.split(splitPatternMsg2)); //消除空格
+
+        var msg = '110报警120急救119火警114查询';
+        var patternM = /\d+/g;
+        // let patternM=/\d{1,}/g; 同上
+        console.log(msg.match(patternM));
+
+        var msg2 = '1111-11-11';
+        var patternM2=/-/;
+        console.log(msg2.split(patternM2).join(','));
+        
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">CLICK</button>
+    <script>
+
+        var eventUtil = {
+            addHandler: function (ele, type, handler, bool) {
+                bool = bool || false;
+                // chrome/Firefox/IE9+ addEventListener
+                // IE8- attachEvent
+                if (ele.addEventListener) {
+                    ele.addEventListener(type, handler, bool);
+                } else if (ele.attachEvent) {
+                    ele.attachEvent("on" + type, handler);
+                }
+            },
+            removeHandler: function (ele, type, handler, bool) {
+                bool = bool || false;
+                // chrome/Firefox/IE9+ removeEventListener
+                // IE8- detachEvent
+                if (ele.removeEventListener) {
+                    ele.removeEventListener(type, handler, bool);
+                } else if (ele.detachEvent) {
+                    ele.detachEvent("on" + type, handler, false);
+                }
+            },
+            getTarget: function (event) {
+                return event.target || event.srcElement;
+            },
+            preventDefault: function (event) {
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                }
+            },
+            stopPropagation: function (event) {
+                if (event.stopPropagation) {
+                    event.stopPropagation();
+                } else {
+                    event.cancelBubble = true;
+                }
+            },
+            //只适用于keypress
+            getCharCode: function (event) {
+                if (typeof event.charCode == "number") {
+                    return event.charCode;
+                } else {
+                    return event.keyCode;
+                }
+            }
+        }
+        //touch
+
+        let btn = document.getElementById('btn');
+        //手指触屏幕时触发
+        eventUtil.addHandler(btn,"touchstart",function(event){
+            console.log('手指触摸屏幕时触发');
+            console.log('当前触摸屏幕的触摸点数组:',event.touches);//触摸点信息(几根手指几个触摸点)
+            console.log('数组中只包含引起事件的触摸点信息:',event.changedTouches); //移动的触摸点的信息
+            console.log('只包含放在元素上的触摸信息:',event.targetTouches);//在事件对象上面触摸点的信息
+        })
+
+        //手指在屏幕上滑动时触发
+        eventUtil.addHandler(btn,"touchmove",function(event){
+            console.log('手指在屏幕上滑动时触发');
+        })
+
+        //手指从屏幕上移开时触发
+        eventUtil.addHandler(btn,"touchend",function(event){
+            console.log('手指从屏幕上移开时触发');
+        })
+
+        //touchcancel 当系统停止跟踪触摸时触发
+    </script>
+</body>
+
+</html>

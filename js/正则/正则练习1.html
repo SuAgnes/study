@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+     var str = 'regular expression = regexp';
+     var pattern=/lar exp/;
+     var patternFn=new RegExp('lar exp');
+     console.log(pattern.test(str));
+     console.log(pattern.exec(str)[0]);
+     
+     console.log(patternFn.test(str));
+     console.log(patternFn.exec(str)[0]);
+     
+     var strCn = '一个"普通字符"在匹配字符串的时候，匹配与它相同的一个字符';
+     var patternCn=/"普通字符"/;
+     console.log(patternCn.test(strCn));
+     
+     var strJs = 'JavaScript_RegExp_5@gmail.com';
+     var patternJs=/_RegExp_5@gm/i;
+     console.log(patternJs.test(strJs));
+     var patternJsFn=new RegExp('_RegExp_5@gm','i');
+     console.log(patternJsFn.test(strJs));
+     
+     
+    </script>
+</body>
+</html>

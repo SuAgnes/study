@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //遍历节点
+        window.onload = function () {
+            let ele = document.getElementById('target');
+            console.log(ele.innerHTML); //IE7会打印a的值
+            let getId = function (id) {
+                let el = document.getElementById(id);
+                if (!+"\v1") {
+                    //在IE老版本浏览器中 "\v"并没有转义,IE浏览器得到的结果就是字符v
+                    //而其他浏览器对于"\v"解释为一个垂直的指标符,一定程度上相当于空格
+                    //所以IE浏览器对于'\v1'解释的就是字符串'v1',而其他浏览器就是的就是1
+                    //+号为了转换为数值
+                    //IE会转变为NaN,其他浏览器会转变成1
+                    //再加!取反,其他浏览器会对这句话转换为false,而IE会为true,这样就能判断浏览器是否为IE;
+                    if (el && el.id === id) {
+                        return el;
+                    } else {
+                        let els = document.all[id], n = els.length;
+                        for (let i = 0; i < n.length; i++) {
+                            if (els[i].id === id) {
+                                return els[i];
+                            }
+                        }
+                    }
+                }
+            return el;
+            }
+            console.log(document.all);//获取所有dom
+            //getElementsByName()在IE6和Opera7.5上有BUG,1.会返回id等于给定值的元素。2.它们仅仅返回input元素与img元素
+            let div=getId('div');
+            let span=div.getElementById('span');
+            console.log(span);//报错
+            
+        }
+    </script>
+</head>
+
+<body>
+    <a href="" name="target">a</a>
+    <p id="target">p</p>
+    <div id="div">
+        <span id="span">span</span>
+    </div>
+</body>
+
+</html>

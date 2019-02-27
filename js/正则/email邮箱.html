@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>email邮箱</title>
+</head>
+
+<body>
+    <script>
+        let email1='alex@yahoo.com.cn';
+        let email2='alex_1@yahoo.com.cn';
+        let email3='alex_1.a-asd.com@yahoo.com.cn';
+
+        let pattern1=/(?:\w+\.)*\w+@(?:\w+\.)+[a-z]*/i;
+        let pattern2=/^([a-z0-9]+)([._-][a-z0-9]+)*@([a-z0-9]+)([._-][a-z0-9]+)*\.([a-z]{2,4})$/i;
+        console.log(email1.match(pattern1));
+        console.log(email2.match(pattern2));
+        
+    </script>
+</body>
+
+</html>

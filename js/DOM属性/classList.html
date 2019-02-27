@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+         let cl={
+                hasClass:function(ele,cls){
+                    return ele.classList.contains(cls);
+                },
+                addClass:function(ele,cls){
+                    ele.classList.add(cls);
+                },
+                removeClass:function(ele,cls){
+                ele.classList.remove(cls);
+                },
+                    //定义过这个就删除,没定义就添加
+                toggleClass:function(ele,cls){
+                return ele.classList.toggle(cls);
+                }
+            }
+            //classList兼容:IE11+
+            // 较新的浏览器才可以使用
+        window.onload = function () {
+        let div=document.querySelector('div');
+        console.log(cl.hasClass(div,'ccc'));   
+        cl.addClass(div,'ccc');   
+        cl.removeClass(div,'aaa');   
+        cl.toggleClass(div,'aaa');   
+        cl.toggleClass(div,'bbb');
+        console.log(div.classList.toString());//打印class
+        } 
+    </script>
+    <div class="aaa bbb"></div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            //replaceChild
+            // 该方法用新节点替换某个子节点
+            // 有两个参数:replaceChild(要插入的节点,被替换的节点);
+            // 被替换的节点作为返回值,并且从文档中被移除
+            let dUl = document.getElementById('ul');
+            let txt = document.createTextNode('4');
+            let liNew = document.createElement('li');
+            liNew.appendChild(txt);
+            let li2 = dUl.children.item(1);
+            let returnNode = dUl.replaceChild(liNew, li2);
+            console.log(returnNode);
+
+        } 
+    </script>
+    <ul id="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</body>
+
+</html>

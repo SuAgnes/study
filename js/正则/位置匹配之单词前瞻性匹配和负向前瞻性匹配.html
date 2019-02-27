@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>位置匹配之单词边界匹配</title>
+</head>
+
+<body>
+    <ul>
+        <li class="odd">1</li>
+        <li class="even">2</li>
+        <li class="odd">3</li>
+        <li class="even">4</li>
+    </ul>
+    <script>
+        function getByClassName(className, parentNode) {
+            if (document.getElementsByClassName) {
+                return document.getElementsByClassName(className);
+            } else {
+                parentNode = parentNode || document;
+                var nodeList = [];
+                var allNodes = parentNode.getElementsByTagName('*');
+                var pattern = new RegExp('\\b' + className + '\\b');
+                for (var i = 0; i < nodeList.length; i++) {
+                    if (pattern.test(allNodes[i].className)) {
+                        nodeList.push(allNodes[i]);
+                    }
+                }
+                return nodeList;
+            }
+        }
+        var DomOdd = getByClassName('odd');
+        var DomEven = getByClassName('even');
+        for (var j = 0; j < DomOdd.length; j++) {
+            DomOdd[j].style.background = 'pink';
+        }
+        for (var m = 0; m < DomEven.length; m++) {
+            DomEven[m].style.background = 'skyblue';
+        }
+
+        //前瞻性匹配
+
+        // let str='javascript';
+        // let pattern=/java(?=script)/;
+        // console.log(pattern.exec(str));
+        // //前瞻性匹配相反
+        // let pattern1=/java(?!script)/;
+        // console.log(pattern1.exec(str));
+
+        var str = "Java 是一门很好的编程语言，JavaScript是非常好、非常实用的脚本语言！"
+        var pattern = /java(?=script)/i;
+        console.log(pattern.exec(str));
+
+    </script>
+</body>
+
+</html>

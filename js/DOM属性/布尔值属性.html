@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            let inputs = document.querySelectorAll('input');
+            inputs[0].checked = 1;//会自动转换值为布尔值/非布尔值,来判断checked的状态
+            inputs[1].checked = null;//转换为false
+            //IE7以下不可以实现自动转换
+            //checked属性属于input的固有属性,不可用通过removeAttribute来移除它
+            // -----------------------------------------------------
+            let country = document.getElementById('country');
+            let options = country.options;//获取options的集合
+            options[1].selected = 1;//更改选项
+            // -----------------------------------------------------
+            // 修改readonly
+            let inpRo = document.getElementById('ro');
+            inpRo.readOnly = false;//此时变为非只读属性
+            //readOnly是个特例,固有属性"O"必须大写 
+            // -----------------------------------------------------
+            // 修改disabled
+            // 如果某个input属性为disabled的话,即使提交了表单也不会被后台收到,但readonly虽然也不可修改,但提交表单的时候还是会被提交上去
+            inpRo.disabled = false;
+            // -----------------------------------------------------
+            // 修改multiple
+            country.multiple = false;
+            // -----------------------------------------------------
+            // 修改hidden
+            //   IE8以下不支持
+            let div = document.getElementById('div');
+            div.hidden = false;
+        } 
+    </script>
+    <div>你去过的地方:</div>
+    <input type="checkbox">天津
+    <input type="checkbox">北京
+    <input type="checkbox">上海
+    <hr>
+    <select name="" id="country" multiple>
+        <option value="cn">中文</option>
+        <option value="ja">日文</option>
+        <option value="en" selected>英文</option>
+    </select>
+    <hr> 国籍:
+    <input type="text" value="中国" readonly id="ro" disabled>
+    <hr>
+    <div id="div" hidden>html5 新增属性hidden</div>
+</body>
+
+</html>

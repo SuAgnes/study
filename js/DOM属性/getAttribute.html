@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            let inp=document.getElementById('inp');
+            console.log(inp.getAttribute('xxx'));
+            // 用'.'的方法获取自定义属性只有在IE8以下有作用,而且也不推荐
+            //有些属性用'.'和getAttribute获得的值是不同的↓↓
+            console.log(inp.getAttribute('style'));//color:red
+            console.log(inp.style);//一个CSSStyleDeclaration对象
+            console.log(inp.getAttribute('onclick'));//alert(0);
+            console.log(inp.onclick)//onclick(event){alert(0);} 事件对象
+            // IE6-IE7getAttribute解析style/onclick时会返回为一个对象
+            // 通常在编程的时候固有属性通过'.'来获取属性,只有在获取自定义属性的时候才使用getAttribute()；
+        } 
+    </script>
+ <input type="text" id="inp" xxx="a" Yyy="b" Title="warp" Title="warps" style="color:red" onclick="alert(0);">
+</body>
+
+</html>

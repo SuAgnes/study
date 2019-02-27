@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //遍历节点
+        window.onload = function () {
+            //getElementsByClassName在现代浏览器下才被支持,在IE8及以下浏览器是不支持的
+            //自己编写
+            function getElementsByClassName(opts) {
+                let searchClass = opts.searchClass; //储存要查找的类名
+                let node = opts.node || document; //存储要查找的范围
+                let tag = opts.tags || '*';//存储要查找的标签
+                let result = [];
+
+                //判断浏览器支不支持getElementsByClassName方法
+                if (document.getElementsByClassName) {
+                    //如果浏览器支持
+                    let nodes = node.getElementsByClassName(searchClass);
+                    if (tag !== '*') {
+                        for (let i = 0; node = nodes[i++];) {
+                            if (node.tagName === tag.toUpperCase()) {
+                                result.push(node);
+                            }
+                        }
+                    } else {
+                        result = nodes;
+                    }
+                    return result;
+                } else {
+                    //使IE8以下的浏览器能狗支持该属性
+                    let els = node.getElementsByClassName(tag);
+                    let elsLen = els.length;
+                    let i, j;
+                    let pattern = new RegExp('(^|\\s)' + searchClass + "(\\s|$)");
+                    for (let i = 0, j = 0; i < elsLen.length; i++) {
+                        if (pattern.test(els[i].className)) {//检测正则
+                            result[j] = els[i];
+                            j++;
+                        }
+                        return result;
+                    }
+                }
+            }
+            let myUl2 = document.getElementById('myUl2');
+            let r = getElementsByClassName({
+                searchClass: 'light dark',
+                node: myUl2,
+            })
+            console.log(r);
+            console.log(r[0].innerHTML);
+
+        }
+    </script>
+</head>
+
+<body>
+    <ul id="myUl">
+        <li class="light">1</li>
+        <li class="light dark">2</li>
+        <li class="light">3</li>
+    </ul>
+    <ul id="myUl2">
+        <li class="light">1</li>
+        <li class="light dark">second</li>
+        <li class="light">3</li>
+    </ul>
+</body>
+
+</html>

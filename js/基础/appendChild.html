@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            // appendChild()为指定元素节点的最后一个子节点之后添加节点，该方法返回新的子节点。
+            let dUl = document.getElementById('ul');
+            let txt = document.createTextNode('4');
+            let li = document.createElement('li');
+            li.appendChild(txt);
+            dUl.appendChild(li);
+            let firstLi = dUl.firstElementChild;
+            dUl.appendChild(firstLi);//把li1移动到了最后一个
+            let returnNode = dUl.appendChild(firstLi);
+            console.log(returnNode);//返回值是li1;
+        } 
+    </script>
+    <ul id="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</body>
+
+</html>

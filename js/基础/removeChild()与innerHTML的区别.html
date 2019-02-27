@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            let div = document.createElement('div');
+            console.log(div.parentNode);//
+            //新创建一个节点,没有装填到DOM树上,它的父节点parentNode在所有浏览器都是null;
+            document.body.removeChild(document.body.appendChild(div));
+            // console.log(div.parentNode);
+            // console.log(div.parentNode.nodeType);
+            //当我们把新建的节点装填到DOM树上,使用removeChild将其立即移除的话,再去显示它的parentNode,IE6-IE8会返回一个文档碎片对象
+            //这样做是让我们用户重复使用这些被删除的元素,但久而久之内存会多出这样的碎片,容易造成内存泄漏.
+            // ------------------------------------------c
+            let dUl = document.getElementById('ul');
+            // document.body.innerHTML='';
+            // console.log(dUl.parentNode);//null,body下所有的元素都被清除了
+            // ------------------------------------------
+            dUl.parentNode.removeChild(dUl);
+            console.log(dUl.id+":"+dUl.innerHTML);
+            let dUl2=document.getElementById('ul2');
+            dUl2.parentNode.innerHTML='';
+            console.log(dUl2.id+":"+dUl2.innerHTML);
+            //Chrome浏览器 两个都是完整的节点内容
+            //IE浏览器第一个节点的内容是完整的,第二个节点的内容没有了
+            //这证明removeChild在IE8以下是可以得到子节点的.而在通过innerHTML来删除节点的时候,再来显示被删除节点的innerHTML的内容,里面的内容就被清空了.
+             
+             //打个比方,在IE6-IE8中,removeChild()相当于掰断树枝,但是树枝还可以再次使用
+             //innerHTML就是掰断树枝再烧掉
+             //对于Chrome浏览器来说,removeChild和innerHTML都支持掰断树枝,再使用
+        } 
+    </script>
+    <ul id="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <hr>
+    <ul id="ul2">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</body>
+
+</html>

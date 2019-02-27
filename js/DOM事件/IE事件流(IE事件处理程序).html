@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload=function(){
+            // IE8-的添加事件方法,只支持冒泡
+            // attachEvent()
+            // 语法:element.attachEvent(event,function)
+            // 功能:用于向指定元素添加事件句柄
+            // 参数:
+            // event:必须,字符串,指定时间名,必须加"on"前缀
+            // function:必须,指定要事件触发时执行的函数
+
+            // detachEvent()
+            // 语法:element.detachEvent(event,function)
+            // 功能:用于向指定元素添加事件句柄
+            // 参数:
+            // 同addachEvent
+
+            // dom0级事件绑定 兼容所有浏览器
+            // dom2级时间绑定 Chrome Firefox IE9+
+            //attachEvent:IE8及以下才会生效
+            var btn=document.getElementById('btn');
+            btn.attachEvent('onclick',function(){
+                alert('IE8及以下才生效');
+            })
+            var fn2=function(){
+                alert('第二次');//先弹出
+            }
+            // btn.attachEvent("onclick",function() {
+            //     alert('第二次');//先弹出
+            // })
+             btn.attachEvent("onclick",fn2);
+             btn.detachEvent("onclick",fn2);//此时移除
+
+             //this指向window
+             btn.attachEvent('onclick',function(){
+                alert(this===window);
+            })
+        }
+    </script>
+    <button id="btn">IE事件处理</button>
+</body>
+
+</html>

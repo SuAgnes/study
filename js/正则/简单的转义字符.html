@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简单的转义字符</title>
+</head>
+<body>
+    <!-- \ 转义字符 -->
+    <script>
+    let str='// 我是注释';
+    let pattern=/\/\//;
+    console.log(pattern.exec(str));
+     let str2='\\\\\\\\\/' // '\'也需要'\'来转义
+     let pattern2=/\\\\/
+     console.log(pattern2.exec(str2));
+     
+
+     //换行 \n
+     let str3='1.html\n2.cc\n3.js'
+     console.log(str3);
+     let pattern3=/\x0A/;
+     console.log(pattern3.exec(str3));
+     
+     //tab制表符
+     let str4='   js';
+     let pattern4=/\t/;
+    //  相等↑↓
+     let pattern4Two=/\u0009/ 
+     console.log(pattern4.exec(str4));
+     console.log(pattern4.exec(pattern4Two));
+
+     // \n 换行符
+     // \t 制表符
+     // \xnn 由16进制数nn指定的拉丁字符(eg.\x0A<=>\n);
+     // \uxxxx 由16进制数xxxx指定的Unicode字符(eg.\u0009<=>\t);
+
+     //在量词后面加上问号 就会尽可能少的去匹配
+    </script>   
+</body>
+</html>

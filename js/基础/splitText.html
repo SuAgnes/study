@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            //splitText();
+            //按照指定的位置把文本节点分割为两个节点
+            //按照指定的位置来分割NodeValue的值
+            //原来的文本节点将包含从开始到指定位置之前的内容,新文本节点包含剩下的内容
+            //这个方法会返回一个新的文本节点,这个节点与原来的父节点是相同的;
+            let div = document.createElement('div');
+            let txt = document.createTextNode('JavaScript编程艺术之DOM');
+            div.appendChild(txt);
+            document.body.appendChild(div);
+
+            let newNode = div.firstChild.splitText(10);
+            console.log(newNode);
+            console.log(div.firstChild.nodeValue);//JavaScript
+            console.log(newNode.nodeValue);//编程艺术之DOM
+            console.log(div.childNodes.length);//2
+        } 
+    </script>
+    <ul id="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>匹配HTML标签</title>
+</head>
+
+<body>
+    <script>
+        let str = "<p class='odd' id='odd'>123</p>";
+        //    let pattern=/<\/?[a-zA-Z]+(\s+[a-zA-Z]+=(".*"|'.*'))*>/g;
+        //↑↓相等,↓逆向思维
+        let pattern = /<[^>]+>/g;
+        console.log(str.match(pattern));
+       //但是这种方法遇到↓这种情况不可取
+
+       let str2='<input type="text" value=">" name="userName">';
+       let pattern2=/<(?:[^"'>]|"[^"]*|[^']*")*>/g;
+       console.log(str2.match(pattern2));
+    //    (?:)表示非捕获分组，和捕获分组唯一的区别在于，非捕获分组匹配的值不会保存起来
+       
+       let pattern3=/<(?:[^"']|(["'])[^"']*\1)*>/g;
+       console.log(str2.match(pattern3));
+
+    </script>
+</body>
+
+</html>

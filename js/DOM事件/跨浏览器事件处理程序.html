@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+<script>
+window.onload=function(){
+var btn=document.getElementById('btn');
+var eventUtil={
+    addHandler:function(ele,type,handler){
+        // chrome/Firefox/IE9+ addEventListener
+        // IE8- attachEvent
+        if(ele.addEventListener){
+            ele.addEventListener(type,handler,false);
+        }else if(ele.attachEvent){
+            ele.attachEvent("on"+type,handler);
+        }
+    },
+    removeHandler:function(ele,type,handler){
+       // chrome/Firefox/IE9+ removeEventListener
+        // IE8- detachEvent
+         if(ele.removeEventListener){
+            ele.removeEventListener(type,handler,false);
+        }else if(ele.detachEvent){
+            ele.detachEvent("on"+type,handler,false);
+        }
+    }
+}
+var fn=function(){
+    alert('1');
+}
+eventUtil.addHandler(btn,"click",fn);
+eventUtil.removeHandler(btn,"click",fn);
+}
+</script>
+<button id="btn">跨浏览器事件处理程序</button>
+</body>
+
+</html>

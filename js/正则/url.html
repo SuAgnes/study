@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>url</title>
+</head>
+
+<body>
+    <script>
+        //(协议:\/\/)主机名(:端口号)/(路径)
+
+        //协议:http:// https:// ftp file mailto
+        /^(https?:\/\/)?([^:\/]+)(:\d+)?(\/.*)?$/;
+
+        //匹配主机名
+        /^([a-z0-9]\.|[a-z0-9][-a-z0-9]*[a-z0-9]\.)*([a-z]+)$/i
+
+        //替换后的正则
+
+        let str = 'www.sadsfer.dsfer.dfsf.com:12/213/s.html';
+        let pattern = /^(https?:\/\/)?([a-z0-9]\.|[a-z0-9][-a-z0-9]*[a-z0-9]\.)*([a-z]+)(:\d+)?(\/.*)?$/;
+    </script>
+</body>
+
+</html>

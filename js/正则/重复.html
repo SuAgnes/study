@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>重复</title>
+</head>
+<body>
+    <script>
+    let str='12345678';
+    let pattern=/\d{3}/;
+    let pattern2=/\d{1,3}/; //大于等于1,小于等于3的范围
+    let pattern3=/\d{1,}/; //匹配大于等于1个
+    console.log(pattern.exec(str));
+    console.log(pattern2.exec(str));
+    console.log(pattern3.exec(str));
+    
+    let pattern4=/\d?/; //匹配0次或1次 /\d{0,1}/
+    console.log(pattern4.exec(str));
+    let pattern5=/\d+/; //至少匹配1次 /\d{1,}/
+    console.log(pattern5.exec(str));
+    let pattern6=/\d*/; //零次或更多
+    console.log(pattern6.exec(str));
+    
+
+    // 联系
+    let msg='午餐:$15.5!';
+    let patternMsg=/\d+\.?\d*/;
+    let patternMsg2=/\d{1,}\.{0,1}\d{0,}/;
+    console.log(patternMsg.exec(msg));
+    console.log(patternMsg2.exec(msg));
+    
+    var strPhone = '我家的电话是6930184，地址是北京西城区';
+    let patternPhone=/\d+/;
+    console.log(patternPhone.exec(strPhone));
+    
+    </script>
+</body>
+</html>

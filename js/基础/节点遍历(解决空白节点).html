@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>遍历节点(去除空白节点)</title>
+    <script>
+        //遍历节点
+        window.onload = function () {
+            let oUl = document.getElementById('box');
+            //方法一
+            for (let i = 0, len = oUl.childNodes.length; i < len; i++) {
+                if (box.childNodes[i].nodeType == 1) {//过滤空白节点
+                    console.log(box.childNodes[i]);
+                }
+            }
+            //方法二
+            // childre[i]里面返回的全部是元素节点,不包含文本节点。
+            // childElementCount返回全部子节点的个数,不包含空白的文本节点
+            console.log('-----API分割线-----');
+
+            for (let i = 0, len = oUl.childElementCount; i < len; i++) {
+                console.log(oUl.children[i]);
+            }
+            //兼容:IE9+、Firefox3.5+、Safari4+、Chrome、Opera10+
+        }
+    </script>
+</head>
+
+<body>
+    <ul id="box">
+        <li>节点一</li>
+        <li>节点二</li>
+        <li>节点三</li>
+    </ul>
+</body>
+
+</html>

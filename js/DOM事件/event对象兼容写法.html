@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            var eventUtil = {
+                addHandler: function (ele, type, handler) {
+                    // chrome/Firefox/IE9+ addEventListener
+                    // IE8- attachEvent
+                    if (ele.addEventListener) {
+                        ele.addEventListener(type, handler, false);
+                    } else if (ele.attachEvent) {
+                        ele.attachEvent("on" + type, handler);
+                    }
+                },
+                removeHandler: function (ele, type, handler) {
+                    // chrome/Firefox/IE9+ removeEventListener
+                    // IE8- detachEvent
+                    if (ele.removeEventListener) {
+                        ele.removeEventListener(type, handler, false);
+                    } else if (ele.detachEvent) {
+                        ele.detachEvent("on" + type, handler, false);
+                    }
+                },
+                getTarget: function (event) {
+                    return event.target || event.srcElement;
+                },
+                preventDefault: function (event) {
+                    if (event.preventDefault) {
+                        event.preventDefault();
+                    } else {
+                        event.returnValue = false;
+                    }
+                },
+                stopPropagation: function (event) {
+                    if (event.stopPropagation) {
+                        event.stopPropagation();
+                    } else {
+                        event.cancelBubble = true;
+                    }
+                }
+            }
+            var child = document.getElementById('child');
+            var parent = document.getElementById('parent');
+            var a = document.getElementById('a');
+            eventUtil.addHandler(child, "click", function (event) {
+                var target = eventUtil.getTarget(event);
+                console.log(target);
+                alert('child被触发了');
+                eventUtil.stopPropagation(event);
+            })
+            eventUtil.addHandler(a, "click", function (event) {
+                eventUtil.preventDefault(event);
+            })
+            eventUtil.addHandler(parent,"click",function(event){
+                alert('parent被触发了');
+            })
+        }
+    </script>
+    <div id="parent">
+        <div id="child">child</div>
+    </div>
+    <a href="http://www.baidu.com" id="a">跳转</a>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>位置匹配之单词边界匹配</title>
+</head>
+
+<body>
+    <ul>
+        <li class="odd">1</li>
+        <li class="even">2</li>
+        <li class="odd">3</li>
+        <li class="even">4</li>
+    </ul>
+    <script>
+        function getByClassName(className, parentNode) {
+            if (document.getElementsByClassName) {
+                return document.getElementsByClassName(className);
+            } else {
+                parentNode = parentNode || document;
+                var nodeList = [];
+                var allNodes = parentNode.getElementsByTagName('*');
+                var pattern = new RegExp('(^|\\s+)' + className + '($|\\s)');
+                for (var i = 0; i < nodeList.length; i++) {
+                    if (pattern.test(allNodes[i].className)) {
+                        nodeList.push(allNodes[i]);
+                    }
+                }
+                return nodeList;
+            }
+        }
+        var DomOdd = getByClassName('odd');
+        var DomEven = getByClassName('even');
+        for (var j = 0; j < DomOdd.length; j++) {
+            DomOdd[j].style.background = 'pink';
+        }
+        for (var m = 0; m < DomEven.length; m++) {
+            DomEven[m].style.background = 'skyblue';
+        }
+        
+        var str = "text1 is the first,text2 is second,text3 is third";
+        /*此处添加代码*/
+        var pattern = new RegExp('text2');
+        console.log(pattern.exec(str))
+    </script>
+</body>
+
+</html>

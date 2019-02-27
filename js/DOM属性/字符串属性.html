@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            let btn=document.getElementById('btn');
+            console.log(btn.dataset.xxxYyy);//多个'-'分割的属性名要用驼峰形式访问
+            console.log(btn.dataset.toggle);
+            
+            
+        } 
+    </script>
+    <p><bdo dir="ltr">阅读顺序从左到右</bdo></p>
+    <p><bdo dir="rtl">阅读顺序从右到左</bdo></p>
+
+    <input type="text" value="z快捷键" accesskey="z"> 
+    <!-- accesskey="z" Chrome alt+z 可直接获得焦点↑↑ -->
+<hr>
+    <button id="btn" type="button" data-toggle="model" data-xxx-yyy="abc">Small modal</button>
+</body> 
+
+</html>

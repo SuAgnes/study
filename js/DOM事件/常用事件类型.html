@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var eventUtil = {
+            addHandler: function (ele, type, handler, bool) {
+                bool = bool || false;
+                // chrome/Firefox/IE9+ addEventListener
+                // IE8- attachEvent
+                if (ele.addEventListener) {
+                    ele.addEventListener(type, handler, bool);
+                } else if (ele.attachEvent) {
+                    ele.attachEvent("on" + type, handler);
+                }
+            },
+            removeHandler: function (ele, type, handler, bool) {
+                bool = bool || false;
+                // chrome/Firefox/IE9+ removeEventListener
+                // IE8- detachEvent
+                if (ele.removeEventListener) {
+                    ele.removeEventListener(type, handler, bool);
+                } else if (ele.detachEvent) {
+                    ele.detachEvent("on" + type, handler, false);
+                }
+            },
+            getTarget: function (event) {
+                return event.target || event.srcElement;
+            },
+            preventDefault: function (event) {
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                }
+            },
+            stopPropagation: function (event) {
+                if (event.stopPropagation) {
+                    event.stopPropagation();
+                } else {
+                    event.cancelBubble = true;
+                }
+            }
+        }
+        //常用事件类型
+        // onclick
+        // onfocus 元素获得焦点
+        // onblur 元素失去焦点
+        // onmouseover 鼠标移入
+        // onmouseout 鼠标移出
+        // onmousedown 鼠标按下
+        // onmousemove 鼠标移动 重复触发
+        // onmouseup 鼠标松开
+
+        // onload
+        eventUtil.addHandler(window, "load", function (e) {
+            //    image标签加载完毕
+            let image = document.createElement('img');//产生html里的image标签
+            eventUtil.addHandler(image, "load", function (e) {
+                // alert('图片加载完毕');
+            })
+            image.src = "../image/1159346-20171014144900699-462374222.jpg"
+            //     预加载
+            let imageLazy = new Image();//把图片缓存到内存中
+            //在打开页面之前,把很多图片都缓存到了内存上面,当打开页面的时候,就可以从内存中把图片取出来,这种过程就叫图片的预加载
+            eventUtil.addHandler(imageLazy, "load", function (e) {
+                // alert('预加载');
+            })
+            imageLazy.src = "../image/u=1050899379,3521015840&fm=26&gp=0.jpg"
+            //js动态加载
+            let script = document.createElement('script');
+            eventUtil.addHandler(script, "load", function (e) {
+                alert('js loaded');
+            })
+            //script.src="jquery.js"; 示例
+            document.body.appendChild(script);
+            //css 动态加载
+            let link = document.createElement('link');
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            eventUtil.addHandler(link, "load", function (e) {
+                alert('css loaded');
+            })
+            //link.href="example.css"; 示例
+            document.getElementsByTagName('head')[0].appendChild(link);
+
+            //unload 用户从一个页面切换到另一个
+            eventUtil.addHandler(window, "unload", function (e) {
+                alert('unloaded');
+            })
+            //resize 窗口大小发生改变时触发
+            eventUtil.addHandler(window, "resize", function (e) {
+                console.log('窗口大小改变啦~');
+            })
+            //scroll 滚动轴事件
+            eventUtil.addHandler(window, "scroll", function (e) {
+                console.log('滚动条被拖动啦~');
+                //和resize事件一样 重复执行 非常损耗性能
+            })
+            // focus事件不支持冒泡
+            let parent = document.getElementById('parent');
+            let child = document.getElementById('child')
+            let childInp = document.getElementById('childInp')
+            let dblchild = document.getElementById('dblchild')
+            let btn = document.getElementById('btn')
+            // eventUtil.addHandler(parent,"click",function(e){
+            //     alert('parent被点击啦');
+            // })
+            eventUtil.addHandler(child, "click", function (e) {
+                alert('child被点击啦');
+            })
+            eventUtil.addHandler(childInp, "focus", function (e) {
+                console.log('childInp获取焦点啦');
+            })
+            // focusin 同focus,只不过focusin支持冒泡
+            eventUtil.addHandler(childInp, "focusin", function (e) {
+                console.log('focusin,元素获取焦点时触发,兼容IE5.5+,Safari5.1+,Chrome等');
+            })
+            // focusout 同blur
+            eventUtil.addHandler(childInp, "focusout", function (e) {
+                console.log('focusout,元素失去焦点时触发,兼容IE5.5+,Safari5.1+,Chrome等');
+            })
+            // DOMFocusIn DOMFocusOut 支持Opera的一些方法 现在大多数不用 取而代之的是focus/focusin/blur/focusout  
+            eventUtil.addHandler(childInp, "focusin", function (e) {
+                console.log('focusin');
+            })
+            // focusout 同blur
+            eventUtil.addHandler(childInp, "focusin", function (e) {
+                console.log('元素失去焦点时触发,兼容IE5.5+,Safari5.1+,Chrome等');
+            })
+
+            // 鼠标事件
+
+            //双击
+            eventUtil.addHandler(dblchild, "dblclick", function (e) {
+                alert('双击啦');
+            }, true)
+
+            // mousedown+mouseup=click;
+            //鼠标按下
+            eventUtil.addHandler(btn, "mousedown", function (e) {
+                console.log(event.button);
+                //IE8+
+                // event.button == 0 鼠标左键
+                // event.button == 1 鼠标中键
+                // event.button == 2 鼠标右键
+
+                //IE8-
+                // event.button == 0 没有按下按钮
+                // event.button == 1 按下主鼠按钮
+                // event.button == 2 按下次鼠按钮
+                // event.button == 3 同时按下主/次鼠标按钮
+                // event.button == 4 按下中鼠按钮
+            }, )
+            //鼠标移入 进入目标元素或其子元素的时候执行
+            eventUtil.addHandler(child, "mouseover", function (e) {
+                alert('鼠标移入啦');
+            })
+
+            //鼠标移出 离开目标元素或其子元素的时候执行
+            eventUtil.addHandler(child, "mouseout", function (e) {
+                alert('鼠标离开啦');
+            })
+
+            //鼠标移入 只能进入目标元素时候才去触发
+            eventUtil.addHandler(parent, "mouseenter", function (e) {
+                console.log('mouseenter');
+            })
+
+            //鼠标移出 只能进入目标元素时候才去触发
+            eventUtil.addHandler(parent, "mouseleave", function (e) {
+                console.log('mouseleave');
+            })
+        })
+    </script>
+</body>
+<a href="http://www.baidu.com">跳转</a>
+<div style="height:1000px;background:pink;width:200px;" id="parent">
+    <div id="child" style="background:#ccc;width:100px;height:100px">child</div>
+    <div id="dblchild">双击</div>
+    <input type="text" id="childInp">
+    <button id="btn">点击</button>
+</div>
+
+</html>

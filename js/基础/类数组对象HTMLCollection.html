@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类数组对象HTMLCollection</title>
+    <script>
+        window.onload = function () {
+            //类数组对象HTMLCollection表示HTML元素的集合
+            // HTMLCollection与NodeList同样是一种类数组对象。
+            //可以通过方括号语法来访问NodeList的值,有item方法与length属性
+            //它并不是Array的实例,没有数组对象的方法
+
+            //可以返回HTMLCollection的操作
+            //Ele.getElementsByTagName();
+            //document.scripts 返回页面全部的script元素集合
+            //document.links 返回页面里的全部a元素集合
+            //document.images 返回页面的全部img元素集合
+            //document.forms 返回页面的全部form表单元素集合
+            //tr.cells 会返回tr的所有td子元素集合
+            //select.options 会返回select的全部option选项
+            //......
+
+            let aScripts = document.scripts,
+                aLinks = document.links,
+                aCells = document.getElementById('tr').cells,
+                aImgs = document.images,
+                aForms = document.forms,
+                aOptions = document.getElementById('select').options,
+                aPs = document.getElementsByTagName('p');
+
+            // console.log(aScripts);
+            // console.log(aLinks);
+            // console.log(aCells);
+            // console.log(aImgs);
+            // console.log(aForms);
+            // console.log(aOptions);
+            // console.log(aPs);
+
+            console.log(aCells.namedItem('td'));//有id为td的打印id为td的,没有的话找name为td的,都没有打印null
+            
+
+        }
+    </script>
+    <script>
+        console.log('script2');
+    </script>
+</head>
+
+<body>
+    <ul id="box">
+        <li>节点一</li>
+        <li>节点二</li>
+        <li>节点三</li>
+    </ul>
+
+    <table border="1">
+        <tr id="tr">
+            <td id="td">第一行</td>
+            <td name="td">第二行</td>
+            <td name="td">第三行</td>
+        </tr>
+    </table>
+
+    <img src="./image/1159346-20171014144900699-462374222.jpg" alt="">
+    <img src="./image/u=1050899379,3521015840&fm=26&gp=0.jpg" alt="">
+
+    <form action="">
+        <input type="text" name="" id="" value="用户名">
+    </form>
+
+    <form action="">
+        <input type="text" value="密码">
+    </form>
+
+    <a href="#">忘记密码</a>
+    <a href="#">更多内容</a>
+
+    <select name="" id="select">
+        <option value="0">天津</option>
+        <option value="1">北京</option>
+        <option value="2">上海</option>
+    </select>
+
+    <p>P1</p>
+    <p>P2</p>
+</body>
+
+</html>

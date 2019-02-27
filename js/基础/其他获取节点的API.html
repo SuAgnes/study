@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //遍历节点
+        window.onload = function () {
+            let eles=document.getElementsByTagName('!');//在IE6-IE8获得所有的注释节点
+            //在IE6-IE8下<!DOCTYPE html>也是注释节点
+            let elesAll=document.getElementsByTagName('*');//获取页面所有的元素
+            //  console.log(elesAll);
+
+             //getElementsByClassName
+             //兼容:Firefox3+/IE9+/Chrome/Safari4+
+             let dUl=document.getElementById('dUl');
+             let smLinks=dUl.getElementsByClassName('li-first li-second'); //可以用空格 隔开多个class
+             let liLinks=dUl.getElementsByClassName('li-second li-first'); //可以颠倒位置 不存在先后顺序
+             console.log(smLinks);
+             console.log(liLinks);
+             
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 1 -->
+    <ul id="dUl">
+        <li class="li-first"></lic>
+        <li class="li-first li-second"></li>
+        <li class="li-first"></li>
+    </ul>
+    <!-- 2 -->
+</body>
+
+</html>

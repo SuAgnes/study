@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            let inp=document.getElementById('inp');
+            inp.setAttribute('xxx','c');
+            inp.setAttribute('newAttr','hahaha');//没有这个属性的话就会创建出一个新的属性
+        // IE7以下不能设置固有属性style和onclick的值
+        } 
+    </script>
+ <input type="text" id="inp" xxx="a">
+</body>
+
+</html>

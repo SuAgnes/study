@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //innerText可以设置或获取位于对象起始和结束标签内的文本 
+        //兼容:IE4+、Safari3+、Opera8+、Chrome|低版本Firefox不支持
+
+        window.onload = function () {
+            let dContent = document.getElementById("content");
+            // console.log(dContent.innerText);
+            // dContent.innerText="<p>This is a paragraph</p>"//此时被赋值的<p></p>是一个文本状态,并不是标签
+            // console.log(dContent.innerText);
+
+            //↑↑低版本火狐浏览器不支持,但是火狐支持textContent
+            // dContent.textContent="<p>FireFox</p>"//此时被赋值的<p></p>是一个文本状态,并不是标签
+
+            //兼容写法
+            function getInnerText(ele) {
+                return (typeof ele.textContent == "string") ? ele.textContent : ele.innerText;
+            }
+            //兼容写法
+            function setInnerText(ele, text) {
+                if (typeof ele.textContent == "string") {
+                    ele.textContent = text;
+                } else {
+                    ele.innerText = text;
+                }
+            }
+            console.log(getInnerText(dContent));
+            setInnerText(dContent, 'Hello world!');
+            //outerText不仅会替换子节点,还会替换调用它的节点 
+            //兼容:IE4+、Safari3+、Opera8+、Chrome|不建议使用该属性
+            dContent.outerText = "<p>outerText</p>"//div已经不见了,已被这个字符串取代
+        } 
+    </script>
+    <div id="content">
+        <p>this is a
+            <strong>paragraph</strong>with a list following it.</p>
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </div>
+</body>
+
+</html>

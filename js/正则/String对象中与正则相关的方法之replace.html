@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>String对象中与正则相关的方法之replace</title>
+</head>
+
+<body>
+    <script>
+        let str = 'i love js js';
+        let pattern = /js/g; //全局替换
+        console.log(str.replace(pattern, 'html'));
+
+        let time = '2011-11-11';
+        let patternTime = /-/g;
+        console.log(time.replace(patternTime, '.')); //返回的是新的字符串
+
+        let strHTML = 'i love js';
+        let patternHTML = /(js)/;
+        document.write(strHTML.replace(patternHTML, '<b style=\'color:red\'>$1</b>'));
+
+        //敏感字过滤
+
+        let msg = '中国军队和阿扁一起办证';
+        let patternMsg = /国军|阿扁|办证/g;
+        console.log(msg.replace(patternMsg, function ($0) {
+            // console.log($0);
+            let result = '';
+            //多字符匹配
+            for (let i = 0; i < $0.length; i++) {
+                result += '*'
+            }
+            return result;
+        }));
+
+        let testMsg = '1.js\n2.js\n3.js';
+        let patternTest = /\n/g;
+        console.log(testMsg.replace(patternTest, ','));
+        let testMsg2 = 'baidu, google';
+        let patternTest2 = /(baidu)(, )(google)/g;
+        console.log(testMsg2.replace(patternTest2, '$3$2$1'));
+
+        //首字母大写
+        let testMsg3 = 'this is a book';
+        console.log(testMsg3.substring('t'));
+        // let patternTest3=/^\w|\b\w/g;
+        let patternTest3 = /\b\w/g;
+
+        // console.log(testMsg3.match(patternTest3));
+        console.log(testMsg3.replace(patternTest3, function ($0) {
+            //函数中的第一个参数永远是匹配到的所有内容
+            //第二个参数开始才是捕获型分组匹配到的内容,有几个分组就有几个参数
+            let result;
+            for (let i = 0; i < $0.length; i++) {
+                result = $0.substring(0, 1).toUpperCase();
+            }
+            return result;
+            // return $1.substring(0,1).toUpperCase()+$1.substring(1);//匹配首字母
+        }));
+    </script>
+</body>
+
+</html>

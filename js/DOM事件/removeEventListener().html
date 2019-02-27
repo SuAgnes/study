@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // removeEventListener()
+        // 语法element.addEventListener(event,function,useCapture)
+        //功能:移除addEventListener()方法添加的事件句柄
+        // 参数: 
+        // event:必须,字符串,要移除的事件名称
+        // function：必须,指定要移除的参数
+        // userCapture:可选。布尔值，指定移除事件句柄的阶段
+
+        //事件解绑成功的主要原因就是保持add和remove这两个函数里面的参数是一致的。
+        window.onload = function () {
+            let btn = document.getElementById('btn');
+            let dom2=function(){
+                alert(1)
+            }
+            btn.addEventListener("click", dom2, false);
+            btn.removeEventListener("click",dom2,false);
+            // let dom2=function(str){
+            //     return function(){
+            //     alert(str);
+            //     }
+            // }
+            // btn.addEventListener("click", dom2('1'), false);
+            // btn.removeEventListener("click",dom2('1'),false);
+        }
+    </script>
+    <button id="btn">dom2级</button>
+</body>
+
+</html>

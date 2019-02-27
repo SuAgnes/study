@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>去除字符串首尾的空白字符</title>
+</head>
+
+<body>
+    <script>
+        //replace如果匹配到了会替换,匹配不到就会直接返回字符串,所以有些情况比如首空格就可以把*换成+,避免资源浪费
+        let str = '    SuAgnes     ';
+        let start = /^\s+/;
+        let end = /\s+$/;
+        let startEnd = /^\s+|\s+$/g; //g是为了避免只匹配首或者尾
+        console.log('|' + str.replace(start, '') + '|');
+        console.log('|' + str.replace(end, '') + '|');
+        console.log('|' + str.replace(startEnd, '') + '|');
+        console.log('|' + str.replace(start, '').replace(end, '') + '|'); //第二种实现
+
+        //组合起来容易影响优化,所以用一个高大全的正则不一定是一个好的用法
+
+        //自己封装一个去空格的函数
+        function trim(str) {
+            return str.replace(/^\s+/, '').replace(/\s+$/, '');
+        }
+        console.log('|' + trim(str) + '|');
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>QQ号、昵称和密码</title>
+</head>
+<body>
+    <script>
+        //QQ号:全是数组/首位不能为0/最少5位/最多11位?
+
+        let qq=/^[1-9]\d{4,}$/; //没有最多11位的限制 有的话改为{4,10}
+
+        //昵称:2-18位/中英文/数字/下划线/不允许特殊字符
+    //    let nickname=/^[\u4e00-\u9fa5a-zA-z0-9_]{2,18}$/;
+       let nickname=/^[\u4e00-\u9fa5\w]{2,18}$/;
+        
+        //密码:区分大小写/不能用空白字符/6-16位
+
+        let password=/^\S{6,16}$/;
+        // let password=/^[\w~!@#$%^\[\]]{6,16}$/; //穷举法 同↑↑
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RegExp对象的实例方法</title>
+</head>
+<body>
+    <script>
+    let str='js js js';
+    let pattern=/js/g; //全局
+    console.log(pattern.exec(str));//lastIndex为js间的空格
+    console.log(pattern.exec(str));
+    console.log(pattern.exec(str));
+    console.log(pattern.exec(str));//null后悔自动重置为0
+    console.log(pattern.exec(str));
+    
+    //pattern.lastIndex 在默认情况下(非全局匹配情况下)是0;
+    //执行全局匹配后就会发生变化 变成了匹配上的字符的下一个位置;
+    //↑↑exec执行原理
+
+    let pattern2=/(j)s/g; //全局
+    console.log(pattern2.exec(str));//lastIndex为js间的空格
+    console.log(pattern2.exec(str));
+    console.log(pattern2.exec(str));
+    console.log(pattern2.exec(str));//null后悔自动重置为0
+    console.log(pattern2.exec(str));
+
+    // console.log结果同上
+console.log('分割线===========================');
+
+    let strMsg='1.js 2.js 3.js';
+    let total=0,
+    match='',
+    result;
+    while ((result=pattern.exec(strMsg))!==null) {
+        total++;
+        match+='第'+total+'个匹配到的是:'+result[0]+'它的位置是:'+result.index+'\n';
+    }
+    // while (pattern.exec(strMsg)!=null) {
+    //     total++;
+    //     match+='第'+total+'个匹配到的是:'+pattern.exec(strMsg)[0]+'它的位置是:'+pattern.exec(strMsg).index+'\n';
+    // }
+    match+='共找到'+total+'处匹配\n';
+    console.log(str);
+    console.log(match);
+    
+    let patternMsg=new RegExp('a\\nb');
+    console.log(patternMsg.valueOf()==patternMsg); //等于正则本身
+    //字面量 构造函数相同↑↑
+    </script>
+</body>
+</html>

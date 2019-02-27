@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function () {
+            //查找第一个子节点用firstChild、查找最后一个子节点用lastChild。
+            //子节点通过parentNode来获取父节点
+            //获得下一个兄弟节点使用nextSibling
+            //获得上一个兄弟节点使用previousSibling
+            //每个节点都有一个childNodes这样的属性,里面保存着nodeList对象[类数组对象];
+            //nodeList用于保存一种有序的节点,可以通过位置来访问这些节点。
+            //childNodes[1]=childNodes.item(1);
+            let oHtml = document.documentElement;
+            let oHead = oHtml.firstChild;
+            let oBody = oHtml.childNodes[1];
+            // 相等↑↓
+            // let oHead=oHtml.childNodes[0];
+            // 相等↑↓
+            // let oHead=oHtml.item(0);
+            console.log(oBody);//如果head和body之间有空格,是一个text节点,如果没有就算body节点
+            console.log(oHead.parentNode == oHtml); //true
+            console.log(oBody.parentNode == oHtml); //true
+            console.log(oBody.previousSibling == oHead);//true 上一个兄弟节点
+            console.log(oHead.nextSibling == oBody);//true  下一个兄弟节点
+            let oP = document.getElementById('p');
+            let sTxt = p.childNodes[0];
+            console.log(p.ownerDocument == document);//任何节点都可以通过ownerDocument来获得document节点。
+            console.log(p.hasChildNodes());//true 可以通过hasChildNodes()这个方法返回true/false来获得某个节点是否存在子节点的信息。
+            console.log(sTxt.hasChildNodes());//false
+            // elem.owerdocument.defaultView === window
+            // elem.owerdoucment.deafultView.getComputedStyle(elem) 返回style
+        } 
+    </script>
+</head>
+
+<body>
+    <p id="p">文本叶子节点</p>
+</body>
+
+</html>

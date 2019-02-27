@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>被发现啦(*´∇｀*)</title>
+</head>
+
+<body>
+    <script>
+        var hiddenProperty = 'hidden' in document ? 'hidden' :
+            'webkitHidden' in document ? 'webkitHidden' :
+                'mozHidden' in document ? 'mozHidden' :
+                    null;
+        var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+        var onVisibilityChange = function () {
+            if (!document[hiddenProperty]) {
+                document.title = '被发现啦(*´∇｀*)';
+            } else {
+                document.title = '藏好啦(つд⊂)  ';
+            }
+        }
+        document.addEventListener(visibilityChangeEvent, onVisibilityChange);
+    </script>
+</body>
+
+</html>

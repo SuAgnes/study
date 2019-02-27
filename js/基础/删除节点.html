@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        window.onload = function () {
+            //removeChild() 删除某个节点下的子节点;
+            let dUl=document.getElementById('ul');
+            console.log(dUl.childNodes.length);//7
+            let secondChild=dUl.removeChild(dUl.childNodes[1]);
+            // ↑相同↓
+            // let secondChild=dUl.removeChild(dUl.children.item(0));
+            console.log(secondChild);//li1
+            console.log(dUl.childNodes.length);//6
+            // !!removeChild必须有参数;
+
+            //removeNode();
+            //IE的私有实现
+            //将目标节点从文档中删除,返回目标节点
+            //参数是布尔值,默认为false,也就是仅删除目标节点,并且保留子节点,如果传入true就和removeChid类似
+
+            let dUl2=document.getElementById('ul2');
+            // let removeNode=dUl2.removeNode();
+            // console.log(removeNode.outerHTML);//只删除父节点
+            let removeNode=dUl2.removeNode(true);//如果传true,会删除父节点+子节点            
+        } 
+    </script>
+    <ul id="ul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <hr>
+    <ul id="ul2">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</body>
+
+</html>

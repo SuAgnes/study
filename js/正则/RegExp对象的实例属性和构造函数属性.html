@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RegExp对象的实例属性和构造函数属性</title>
+</head>
+<body>
+    <script>
+        let str='js js js';
+        let pattern=/js/ig;
+        console.log(pattern.ignoreCase);//判断有没有i
+        console.log(pattern.global);//判断有没有g
+        console.log(pattern.multiline);//判断有没有m
+        console.log(pattern.source);//返回字面量对应形式对应的字符串
+        console.log(pattern.lastIndex);//返回字面量对应形式对应的字符串
+
+        //构造函数属性 (非常不常使用,不同浏览器实现情况不一样);
+        let patternFn=/(j)s/;
+        patternFn.exec(str);
+        // 只有调用exec或者test方法,这里的RegExp才有值
+
+        console.log(RegExp.input);
+        console.log(RegExp.$_); //等于input
+        console.log(RegExp.lastMatch);//最后一次匹配到的字符
+        console.log(RegExp['$&']); //lastIndex的别名 ,但是因为不符合标识符规则(字母/_/$开头,后面可以字母/_/$/数字),所以只能用这种形式
+        console.log(RegExp.leftContext); //上一次匹配左边剩余的字符
+        console.log(RegExp['$`']); //↑别名
+        console.log(RegExp.rightContext); //上一次匹配右边剩余的字符
+        console.log(RegExp["$'"]); //↑别名
+        console.log(RegExp.lastParen); //分组捕获内容
+        console.log(RegExp['$+']); //↑别名
+        
+        console.log(RegExp.$1); //分组字符==/\1\2/
+    </script>
+</body>
+</html>

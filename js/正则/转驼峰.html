@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>转驼峰</title>
+</head>
+
+<body>
+    <script>
+        function toCamelCase(str){
+            let pattern=/-([a-z])/i;
+            return str.replace(pattern,function(all,letter){
+                return letter.toUpperCase();
+            })
+        }
+        console.log(toCamelCase('background-color'));
+        
+    </script>
+</body>
+
+</html>

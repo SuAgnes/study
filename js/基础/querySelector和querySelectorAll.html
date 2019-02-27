@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function () {
+            // querySelector(); 返回文档中匹配指定css选择器的一个元素
+            // querySelectorAll(); 返回文档中匹配指定css选择器的一组元素
+            //主流浏览器基本都支持该属性,IE8+
+            let dDiv=document.getElementById('div');
+            let dUl=dDiv.querySelector('#ul');
+            let dLastLi=dDiv.querySelector('li:last-child');
+            let els=document.querySelector('input , li');//只能找到一个元素
+            console.log(els);
+            //querySelector如果是找不到的元素 会返回null
+            //querySelector还可以找class.但是class里面不可用有违规的字符.例如.foo:bar
+            //如果想使用违规字符,需要用转移符号,.foo\\:bar 
+            let dUlAll=document.querySelectorAll('#ul');
+            let dLiAll=dUlAll[0].querySelectorAll('li');
+            console.log(dUlAll);//返回的是StaticNodeList(与NodeList不同,不具有动态性,不会陷入死循环);
+            console.log(dLiAll);
+            //querySelectorAll如果是找不到的元素 会返回[];            
+        }
+    </script>
+</head>
+
+<body>
+    <input type="text">
+    <div id="div">
+        <ul id="ul">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </div>
+</body>
+
+</html>

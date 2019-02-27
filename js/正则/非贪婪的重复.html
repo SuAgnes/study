@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非贪婪的重复</title>
+</head>
+<body>
+    <script>
+    //正则在默认情况下都是贪婪的,只要情况允许都会更多的去进行匹配
+    let str='aaaaab';
+    let pattern=/a+/;
+    console.log(pattern.exec(str));//有多少匹配多少
+    let pattern2=/a+?/;
+    console.log(pattern2.exec(str));//由贪婪转换为非贪婪
+    let pattern3=/a{0,1}/;
+    console.log(pattern3.exec(str));//由贪婪转换为非贪婪
+    let pattern4=/a+?b/;
+    console.log(pattern4.exec(str));//aaab ,从第一个开始匹配的
+    //因为正则表达式总是会去寻找字符串中第一个可能匹配的位子
+
+    let domMsg='<td><p>a</p></td><td><p>b</p></td>';
+    let patternDom=/<td>.*<\/td>/;
+    console.log(patternDom.exec(domMsg)); //会一直匹配到最后
+    let patternDom2=/<td>.*?<\/td>/;  //变成了尽可能少的匹配
+    console.log(patternDom2.exec(domMsg)); //会一直匹配到最后
+
+    let strMsg='cctv have [cctv1]、[cctv2]、[cctv3]、[cctv4]……';
+    let patternMsg=/\[c+tv1\]/;
+    let patternMsg2=/\[.*?]/;
+    console.log(patternMsg.exec(strMsg));
+    console.log(patternMsg2.exec(strMsg));
+    
+    let a= 'js[javascript];html[hyper text markup language];css[cascading style sheet]';
+    let patternA=/\[.*?\]/;
+    console.log(patternA.exec(a));
+    
+    </script>
+</body>
+</html>

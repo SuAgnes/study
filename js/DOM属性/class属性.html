@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+         let cc={
+                getClass:function(ele){
+                return ele.className.replace('\s+/'," ").split(" ");//把多个空格合成一个空格
+                },
+                hasClass:function(ele,cls){
+                    return -1<(" "+ele.className+" ").indexOf(' '+cls+" ");//先在className左右都加空格,再以' cls '的方式查找,以确保一定会找到.
+                },
+                addClass:function(ele,cls){
+                    if(!this.hasClass(ele,cls)){
+                        ele.className+=" "+cls;
+                    }
+                },
+                removeClass:function(ele,cls){
+                    if(this.hasClass(ele,cls)){
+                        let reg=new RegExp('(\\s|^)'+cls+'(\\s|$)','gi');//匹配要删除的类名
+                        ele.className=ele.className.replace(reg," ");
+                    }
+                },
+                    //定义过这个就删除,没定义就添加
+                toggleClass:function(ele,cls){
+                    if(this.hasClass(ele,cls)){
+                        this.removeClass(ele,cls);
+                    }else{
+                        this.addClass(ele,cls);
+                    }
+                }
+            }
+        window.onload = function () {
+        let div=document.querySelector('div');
+        console.log(cc.getClass(div));   
+        console.log(cc.hasClass(div,'ccc'));   
+        cc.addClass(div,'ccc');   
+        cc.removeClass(div,'aaa');   
+        cc.toggleClass(div,'aaa');   
+        cc.toggleClass(div,'bbb');
+        } 
+    </script>
+    <div class="aaa bbb"></div>
+</body>
+
+</html>

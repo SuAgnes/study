@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>常用的字符类</title>
+</head>
+<body>
+    <script>
+        // /^\n/ //除回车外所有字符
+        // /^\n/==/./ 
+        // /./可以匹配到除了换行符以外的所有东西
+
+
+        // /[a-zA-z0-9]/==/\w/
+        // /[^a-zA-z0-9]/==/\W/
+
+        let msg='哈哈哈1号';
+        let patternMsg=/\w+/;
+        console.log(patternMsg.test(msg));
+        
+        //\w 匹配包括下划线的任何单词字符。类似但不等价于“[A-Za-z0-9_]”，这里的"单词"字符使用Unicode字符集。
+        // 在正则中,大写一般都代表小写的反面
+
+        // /[0-9]/==/\d/
+        // /[^0-9]/==/\D/
+
+        // /\s/ 既可以匹配空格,又可以匹配制表符
+        // /\S/ 匹配除了空格和制表符之外的所有字符
+
+        let str=' 1';
+        let pattern=/[\s\d]/ //匹配除了空格或数组
+
+        console.log(pattern.exec(str));
+        
+        var str2 = '192.168.1.1@Admin';
+        // var pattern2=/1.1@Admin/i;
+        var pattern2=/\d\.\d\W\w+$/
+        console.log(pattern2.exec(str2));
+        
+
+    </script>   
+</body>
+</html>

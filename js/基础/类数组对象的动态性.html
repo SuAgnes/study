@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>类数组对象的动态性</title>
+    <script>
+        window.onload = function () {
+            //NodeList,HTMLCollection,NamedNodeMap三个集合都是动态的,是有生命,有呼吸的对象。
+            //它们实际上是基于DOM结构动态执行查询的结果,因此DOM结构的变化能够自动反应这些对象中。
+            //每当文档结构发生变化时,它们都会得到更新。因此，它们始终都会保存着最新、最准确的信息。
+            let aDivs=document.getElementsByTagName('div'),i=0,len=aDivs.length;
+            // while (i<aDivs.length) {
+            //     document.body.appendChild(document.createElement('div'));//死循环,每次循环开始都会重新计算div个数
+            //     i++;
+            // }
+            while (i<len) { //事先保存length
+                document.body.appendChild(document.createElement('div'));//死循环,每次循环开始都会重新计算div个数
+                i++;
+            }
+        }
+    </script>
+</head>
+
+<body>
+   <div></div>
+   <div></div>
+   <div></div>
+</body>
+
+</html>

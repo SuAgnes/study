@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var eventUtil = {
+            addHandler: function (ele, type, handler,bool) {
+                bool=bool||false;
+                // chrome/Firefox/IE9+ addEventListener
+                // IE8- attachEvent
+                if (ele.addEventListener) {
+                    ele.addEventListener(type, handler, bool);
+                } else if (ele.attachEvent) {
+                    ele.attachEvent("on" + type, handler);
+                }
+            },
+            removeHandler: function (ele, type, handler,bool) {
+                bool=bool||false;
+                // chrome/Firefox/IE9+ removeEventListener
+                // IE8- detachEvent
+                if (ele.removeEventListener) {
+                    ele.removeEventListener(type, handler, bool);
+                } else if (ele.detachEvent) {
+                    ele.detachEvent("on" + type, handler, false);
+                }
+            },
+            getTarget: function (event) {
+                return event.target || event.srcElement;
+            },
+            preventDefault: function (event) {
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                }
+            },
+            stopPropagation: function (event) {
+                if (event.stopPropagation) {
+                    event.stopPropagation();
+                } else {
+                    event.cancelBubble = true;
+                }
+            }
+        }
+        //常用事件类型
+        // onclick
+        // onfocus 元素获得焦点
+        // onblur 元素失去焦点
+        // onmouseover 鼠标移入
+        // onmouseout 鼠标移出
+        // onmousedown 鼠标按下
+        // onmousemove 鼠标移动 重复触发
+        // onmouseup 鼠标松开
+
+        // onload
+        eventUtil.addHandler(window, "load", function (e) {
+            let div=document.getElementById('div');
+            eventUtil.addHandler(div,"click",function(event){
+                let keys=new Array();
+                if(event.shiftKey){
+                    keys.push("shift");
+                }
+                if(event.ctrlKey){
+                    keys.push("ctrl");
+                }
+                if(event.altKey){
+                    keys.push("alt");
+                }
+                if(event.metaKey){
+                    keys.push("meta");
+                }
+                console.log("Keys:"+keys.join(""));
+                
+            })
+        })
+    </script>
+</body>
+<div id="div" style="width:500px;height:500px;background:lightgreen"></div>
+</html>

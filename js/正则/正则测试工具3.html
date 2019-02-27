@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正则表达式测试工具</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .wrap{
+        margin: 100px auto;
+        width: 1000px;
+    }
+    #regexp{
+        float: left;
+        width: 650px;
+        font-size: 14px;
+    }
+    .title{
+        color: #777;
+        font-size: 24px;
+        text-align: center;
+    }
+    #regexp .textbox{
+        padding: 5px;
+        width: 538px;
+        height: 150px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        /* 不可通过拖动改变大小↓ */
+        resize: none;
+    }
+    #regexp .textfidld{
+        padding: 5px;
+        width: 215px;
+        border: 1px solid #ccc;
+    }
+    #regexp .only{
+        background: rgb(223, 222, 222);
+    } 
+    #reglist{
+        padding: 20px 0;
+        float: right;
+        width: 320px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }   
+    #reglist dt{
+        margin-bottom: 10px;
+        text-indent: 20px;
+        color: #999;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    #reglist dd{
+        height: 40px;
+        line-height: 40px;
+        text-indent: 20px;
+    }
+    #reglist a{
+        display: block;
+        color: #08c;
+        text-decoration: none;
+    }     
+    #reglist a:hover{
+        color: #005580;
+        background-color: #eee;
+    }    
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <h1 class="title">正则表达式测试工具</h1>
+        <div id="regexp">
+            <textarea name="" id="userText" class="textbox" placeholder="在此输入待匹配的文本"></textarea>
+            <p>
+                正则表达式:
+                <input type="text" name="" id="userRegExp" class="textfield" placeholder="在此输入正则表达式">
+                <input type="checkbox" name="userModifier" value="i">忽略大小写
+                <input type="checkbox" name="userModifier" value="g">全局匹配
+                <input type="checkbox" name="userModifier" value="m">多行匹配
+                <input type="button" id="matchingBtn" value="测试匹配">
+            </p>
+            <p>
+                匹配结果:
+            </p>
+            <div name="" id="matchingResult" class="textbox only" disabled></div>
+            <p>
+                    替换文本:
+                    <input type="text" name="" id="userReplaceText" class="textfield" placeholder="在此输入替换文本">
+                    <input type="button" id="replaceBtn" value="替换">
+                </p>
+                <p>
+                    替换结果结果:
+                </p>
+                <div name="" id="replaceResult" class="textbox only" disabled></div>
+        </div>
+        <dl id="reglist">
+            <dt>常用正则表达式</dt>
+            <dd><a href="javascript:;" title="[\u4e00-\u9fa5]">匹配中文字符</a></dd>
+            <dd><a href="javascript:;">匹配中文字符</a></dd>
+            <dd><a href="javascript:;">匹配中文字符</a></dd>
+        </dl>
+    </div>
+<!-- 外侧包裹 -->
+    <!-- ctrl+shift+P:warp:div.wrap -->
+    <script>
+        let userText=document.getElementById('userText'),
+        userRegExp=document.getElementById('userRegExp'),
+        userModifiers=document.getElementsByName('userModifier'),
+        matchingBtn=document.getElementById('matchingBtn'),
+        matchingResult=document.getElementById('matchingResult'),
+        pattern,Modifiers,
+        userReplaceText=document.getElementById('userReplaceText'),
+        replaceBtn=document.getElementById('replaceBtn'),
+        replaceResult=document.getElementById('replaceResult'),
+        reglists=document.getElementById('reglist').getElementsByTagName('a');
+        ;
+        
+        matchingBtn.onclick=function(){
+            if(!userText.value){
+                alert('请输入待匹配的正则表达式文本');
+                userText.focus();
+                return;
+            }
+            if(!userRegExp.value){
+                alert('请输入待匹配的正则表达式');
+                userRegExp.focus();
+                return;
+            }
+            Modifiers='';
+            for (let i = 0; i < userModifiers.length; i++) {
+                if(userModifiers[i].checked===true){
+                    Modifiers+=userModifiers[i].value;
+                }
+            }
+            pattern=new RegExp('('+userRegExp.value+')',Modifiers);
+            matchingResult.innerHTML=pattern.exec(userText.value)?userText.value.replace(pattern,'<span style="background:yellow">$1</span>'):'(没有匹配)';
+        }
+
+        //替换
+        replaceBtn.onclick=function(){
+            if(!userText.value){
+                alert('请输入待匹配的正则表达式文本');
+                userText.focus();
+                return;
+            }
+            if(!userRegExp.value){
+                alert('请输入正则表达式');
+                userRegExp.focus();
+                return;
+            }
+            if(!userReplaceText.value){
+                alert('请输入要替换成的文本');
+                userReplaceText.focus();
+                return;
+            }
+            Modifiers='';
+            for (let i = 0; i < userModifiers.length; i++) {
+                if(userModifiers[i].checked===true){
+                    Modifiers+=userModifiers[i].value;
+                }
+            }
+            pattern=new RegExp('('+userRegExp.value+')',Modifiers);
+            replaceResult.innerHTML=userText.value.replace(pattern,'<span style="color:red">'+userReplaceText.value+'</span>');
+        }
+        for (let i = 0; i < reglists.length; i++) {
+            reglists[i].onclick=function(){
+                userRegExp.value=this.title;
+            }
+        }
+    </script>
+</body>
+
+</html>
