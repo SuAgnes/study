@@ -169,3 +169,6 @@ git rm index.html --cached 删除暂存区的文件
 只有将暂存区里相应文件删除后,忽略才生效
 
 git help 命令名 (例git help add):将弹出想要查找的命令的文档
+
+in unpopulated submodule 'fileName'  因为当前fileName下已经建立了git仓库 :
+在根目录下输入git rm -r –-cached fileName/ 就可以了
