@@ -21,13 +21,15 @@
                 return `名字为${this.name}`
             }
             showAge(){
+                console.log('this:',this); //undefined
                 return `年龄为${this.age}`
             }
         }
 
         let p1 = new Person('sakura',18);
-        let {showName} = p1;
+        let {showName, showAge} = p1;
         console.log(showName());
+        console.log(showAge());
         
         // 矫正this
         // 1.fn.call()

@@ -26,6 +26,7 @@
         })
         obj.a = 123;
         obj.name = 'sakura';
+        // obj.age = 201;
         console.log(obj);
         
         console.log('-----------------------------------------');
@@ -56,6 +57,7 @@
     }    
     let newFn = new Proxy(fn, {
         apply(){
+            console.log('函数被调用了');
             return 'apply';
         }
     })
@@ -67,10 +69,11 @@
     let newSum = new Proxy(sum, {
         apply(target, context, args){
             console.log(target, context, args);
+            // 指向调用对象, this指向, 参数
             // console.log(args);
             // console.log(...arguments); = console.log(target, context, args);
             
-            return Reflect.apply(...arguments);
+            return Reflect.apply(...arguments); //5
             // 如果需要去增强方法的一些功能 基本需要和Reflect(反射)去配合;
         }
     })
@@ -94,6 +97,7 @@
     Reflect.apply(show,'cc',[4,4]);
     console.log('-----------------------------------------');
     // Reflect严格来说应该说算是语言内部的方法
+    // 可以理解为Reflect可以直接拿到一些语言内部的信息
     // 标准想尽量把(Object.xxx)语言内部的方法,尽量放到Reflect对象身上
     // Reflect现在还不是太标准
     // 通过Reflect对象身上拿到语言内部的东西 ↓↓

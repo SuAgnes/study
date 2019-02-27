@@ -39,8 +39,9 @@
            data:{},
        };
        let json = Object.assign({},defaults,options);
+       console.log(json);
     }
-
+    ajax({a:'a'})
     let jsonA={a:1},
         jsonB={b:2,a:2}, //jsonA.a被jsonB.a覆盖了
         jsonC={c:3};
@@ -65,7 +66,8 @@
         b:2,
         c:3
     }
-
+    console.log('forOfJsonKeys');
+    
     for (const key of Object.keys(jsonKeys)) {
         console.log(key);
     }
@@ -73,7 +75,7 @@
     //也可以事先解构
 
     let {keys, values, entries} = Object;
-    
+    console.log('------------------------------------------------------');
     for (const key of keys(jsonKeys)) {
        console.log(key); //同上
     } 

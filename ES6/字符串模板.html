@@ -64,12 +64,14 @@
     console.log(strRepeat.repeat(3));
     
     //填充字符串
+    // 第一个参数是字符串最小长度,第二个是用来补全的字符串
     let strPad='xxx';
     console.log('a'.padStart(4,strPad));
     console.log('b'.padEnd(4,strPad));
     //不数数
+    
     let strPadMsg='abc';
-    console.log(strPadMsg.padStart(strPad.length+strPadMsg.length,strPad));
+    console.log(strPadMsg.padStart(strPad.length+strPadMsg.length,'def'));
     </script>
 </body>
 </html>

@@ -41,7 +41,7 @@
 
     //还可以解构赋值
     let [a,b] = gen();
-    console.log(a,b); //解构对应yield的值
+    console.log('a,b', a,b); //解构对应yield的值
     function * gen2() {
         yield 'welcome';
         yield '~~';
@@ -49,7 +49,7 @@
         return 'China';
     }
     let [c,...d] = gen2();
-    console.log(c,d)
+    console.log('c,d', c,d) //到return之前
     // 扩展运算符
     console.log(...gen2()); //和c,d感觉类似 welcome ~~ to
     //Array.from

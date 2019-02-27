@@ -8,9 +8,12 @@
 </head>
 <body>
     <script>
-        // 矫正this
         class Person{
             constructor() {
+                // 非静态方法中，不能直接使用 this 关键字来访问静态方法。而是要用类名来调用
+                console.log(Person.staticFn2());
+                console.log(this.constructor.staticFn2());
+                // 这两种方法都可以↑↑
             }
             get a() {
                 return 'a的属性';
@@ -24,20 +27,31 @@
             static staticFn() {
                 return '这是静态方法';
             }
+            static staticFn2() {
+                // 静态方法调用同一个类中的其他静态方法，可使用 this 关键字。
+                return this.staticFn() + ' 静态方法之间直接用this调用';
+            }
+            static staticFn2() {
+                return this.staticFn() + ' 非静态方法中，不能直接使用 this 关键字来访问静态方法。而是要用类名来调用';
+            }
         }
 
         let p1 = new Person();
         p1.a = '123';
-        console.log(p1.a);
+        console.log('p1.a:', p1.a);
 
         // class里面取函数(getter),存值函数(setter)
         // 静态方法:类身上的方法 static 方法(){}
+        // 静态方法调用直接在类上进行，不能在类的实例上调用。静态方法通常用于创建实用程序函数。
+        // p1.staticFn(); //p1.staticFn is not a function
         // 调用 父类.方法();
 
         console.log(p1.showName());
         console.log(Person.staticFn()); //静态
         // 继承prototype 子.prototype=new 父类()
 
+        console.log(Person.staticFn2());
+        
         class Person2{
             constructor(name) {
                 this.name = name;
