@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选择-分组-引用</title>
+</head>
+<body>
+    <script>
+        // /|/ 选择
+    let str='js';
+    let pattern=/html|css|js/;
+    console.log(pattern.exec(str));
+    
+    let str2='ab';
+    let pattern2=/a|ab/;
+    console.log(pattern2.exec(str2)); //a 因为正则会选择最先匹配到的而不是最合适的
+
+    let str3='c java c++ html';
+    let pattern3=/java|c\+\+|c|html/;
+    console.log(pattern3.exec(str3));
+    
+    // 分组
+    const str4 = 'abab';
+    const pattern4 = /(ab)+/;
+    console.log(pattern4.exec(str4)); // abab
+
+    const str5 = 'abcd';
+    const pattern5 = /(ab)c/;
+    console.log(pattern5.exec(str5)); // 数组 第一个元素为abc 第二个是ab, 也就是括号括起来的正则
+
+    const pattern6 = /(?:ab)c/;
+    console.log(pattern6.exec(str5)); // 非捕获分组，数组中也就不会反回 ['abc']
+    const pattern7 = /(ab)(c)/; // ['abc', 'ab', 'c'] 按顺序排列
+
+    const pattern8 = /(a(b(c)))/; // 嵌套分组 从左边开始数就可以
+
+    const str6 = 'ab cb ab'
+    const pattern9 = /(ab)cd \1/; // \1代表第一个分组 \2代表第二个分组 ['ab cb ab', 'ab']
+
+    const str7 = '<p><a>text</a></p>';
+    // 想匹配外层标签内所有的内容 最外层标签可能不是p，所以需要写一个字符类[a-zA-Z],
+    // 不一定是一个 可能是多个+，之间的内容用（.*）→ 禁止贪婪匹配（.*?）, 为了和第一组一样所以用\1(引用)
+    const pattern10= /<([a-zA-Z]+)>(.*?)<\/\1>/; // 和前一个分组对应
+    console.log(pattern10.exec(str7)); // 非捕获分组，数组中也就不会反回 ['abc']
+
+
+
+
+    </script>
+</body>
+</html>

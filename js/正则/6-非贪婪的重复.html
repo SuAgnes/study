@@ -12,9 +12,10 @@
     let str='aaaaab';
     let pattern=/a+/;
     console.log(pattern.exec(str));//有多少匹配多少
+    // 贪婪匹配只和量词有关
     let pattern2=/a+?/;
     console.log(pattern2.exec(str));//由贪婪转换为非贪婪
-    let pattern3=/a{0,1}/;
+    let pattern3=/a{0,1}?/;
     console.log(pattern3.exec(str));//由贪婪转换为非贪婪
     let pattern4=/a+?b/;
     console.log(pattern4.exec(str));//aaab ,从第一个开始匹配的
@@ -24,7 +25,7 @@
     let patternDom=/<td>.*<\/td>/;
     console.log(patternDom.exec(domMsg)); //会一直匹配到最后
     let patternDom2=/<td>.*?<\/td>/;  //变成了尽可能少的匹配
-    console.log(patternDom2.exec(domMsg)); //会一直匹配到最后
+    console.log(patternDom2.exec(domMsg));
 
     let strMsg='cctv have [cctv1]、[cctv2]、[cctv3]、[cctv4]……';
     let patternMsg=/\[c+tv1\]/;

@@ -8,14 +8,14 @@
 </head>
 <body>
     <script>
-        // /^\n/ //除回车外所有字符
+        // /^\n/ //除回车外所有字符=/[a-zA-Z0-9@_asdf]/
         // /^\n/==/./ 
         // /./可以匹配到除了换行符以外的所有东西
-
+        // /\./ 转义成普通字符 可以匹配到小数点
 
         // /[a-zA-z0-9]/==/\w/
         // /[^a-zA-z0-9]/==/\W/
-
+        
         let msg='哈哈哈1号';
         let patternMsg=/\w+/;
         console.log(patternMsg.test(msg));
@@ -30,7 +30,7 @@
         // /\S/ 匹配除了空格和制表符之外的所有字符
 
         let str=' 1';
-        let pattern=/[\s\d]/ //匹配除了空格或数组
+        let pattern=/[\s\d]/ //匹配空格或数字
 
         console.log(pattern.exec(str));
         

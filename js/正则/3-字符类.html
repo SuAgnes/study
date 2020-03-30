@@ -12,10 +12,11 @@
         let str='javascript';
         let pattern=/[js]/;
         console.log(pattern.exec(str));
+        // 匹配里面的任意一个字符 整个字符类是一个整体，只能匹配一个字符，先匹配到谁就是谁
         
         // ^
         let pattern2 = /[^js]/ //除了j和s以外的任何字符(匹配第一个字符)
-        console.log(pattern2.exec(str));
+        console.log(pattern2.exec(str)); // a
         
         //还可以传范围
         let pattern3=/[a-z]/; //26个英文字母

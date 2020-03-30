@@ -19,8 +19,8 @@
 
      //换行 \n
      let str3='1.html\n2.cc\n3.js'
-     console.log(str3);
-     let pattern3=/\x0A/;
+     console.log(str3); // 换行的字符
+     let pattern3=/\x0A/; // 可以用16进制表示\n
      console.log(pattern3.exec(str3));
      
      //tab制表符
@@ -34,8 +34,8 @@
      // \n 换行符
      // \t 制表符
      // \xnn 由16进制数nn指定的拉丁字符(eg.\x0A<=>\n);
-     // \uxxxx 由16进制数xxxx指定的Unicode字符(eg.\u0009<=>\t);
-
+     // \uxxxx 由16进制数xxxx指定的Unicode字符(eg.\u0009<=>\t); 常用来匹配汉字
+     // \u4e00-\u9fa5中文范围
      //在量词后面加上问号 就会尽可能少的去匹配
     </script>   
 </body>
