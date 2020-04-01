@@ -16,14 +16,19 @@
         <li class="even">4</li>
     </ul>
     <script>
+        const str = 'js html'; // js和html的中间就是一个单词边界, 但是不会匹配到js空格
+        // \b 表示\w和\W之间的位置
+        const pattern = /js\b/;
+        
+        // 通过class获取元素
         function getByClassName(className, parentNode) {
             if (document.getElementsByClassName) {
                 return document.getElementsByClassName(className);
             } else {
                 parentNode = parentNode || document;
                 var nodeList = [];
-                var allNodes = parentNode.getElementsByTagName('*');
-                var pattern = new RegExp('\\b' + className + '\\b');
+                var allNodes = parentNode.getElementsByTagName('*'); // 获取所有的元素
+                var pattern = new RegExp('(^|\\s+)' + className + '($|\\s)');
                 for (var i = 0; i < nodeList.length; i++) {
                     if (pattern.test(allNodes[i].className)) {
                         nodeList.push(allNodes[i]);
@@ -40,20 +45,11 @@
         for (var m = 0; m < DomEven.length; m++) {
             DomEven[m].style.background = 'skyblue';
         }
-
-        //前瞻性匹配
-
-        // let str='javascript';
-        // let pattern=/java(?=script)/;
-        // console.log(pattern.exec(str));
-        // //前瞻性匹配相反
-        // let pattern1=/java(?!script)/;
-        // console.log(pattern1.exec(str));
-
-        var str = "Java 是一门很好的编程语言，JavaScript是非常好、非常实用的脚本语言！"
-        var pattern = /java(?=script)/i;
-        console.log(pattern.exec(str));
-
+        
+        var str = "text1 is the first,text2 is second,text3 is third";
+        /*此处添加代码*/
+        var pattern = new RegExp('text2');
+        console.log(pattern.exec(str))
     </script>
 </body>
 

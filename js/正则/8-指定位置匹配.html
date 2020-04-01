@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>指定位置匹配</title>
+</head>
+<body>
+<script>
+    const str = 'html js';
+    const pattern = /^js/; // 首匹配
+    console.log(pattern.exec(str));
+    // /[^0-9]/ 与此处的^不同 此处的是非0-9的意思
+    const pattern2 = /js$/; // 尾匹配
+
+    const str2 = '123213';
+    const pattern3 = /^\d+$/ // 保证全是数字
+
+    // 逆向思考 找到一个非数字
+    const pattern4 = /\D/;
+    console.log(pattern4.test(str2)); // 一旦有一个非数字就返回true
+</script>
+</body>
+</html>

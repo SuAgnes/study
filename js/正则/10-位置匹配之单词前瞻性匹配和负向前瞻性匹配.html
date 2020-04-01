@@ -23,7 +23,7 @@
                 parentNode = parentNode || document;
                 var nodeList = [];
                 var allNodes = parentNode.getElementsByTagName('*');
-                var pattern = new RegExp('(^|\\s+)' + className + '($|\\s)');
+                var pattern = new RegExp('\\b' + className + '\\b');
                 for (var i = 0; i < nodeList.length; i++) {
                     if (pattern.test(allNodes[i].className)) {
                         nodeList.push(allNodes[i]);
@@ -40,11 +40,21 @@
         for (var m = 0; m < DomEven.length; m++) {
             DomEven[m].style.background = 'skyblue';
         }
-        
-        var str = "text1 is the first,text2 is second,text3 is third";
-        /*此处添加代码*/
-        var pattern = new RegExp('text2');
-        console.log(pattern.exec(str))
+
+        //前瞻性匹配
+
+        // let str='javascript';
+        // let pattern=/java(?=script)/;
+        // console.log(pattern.exec(str));
+        // //前瞻性匹配相反
+        // let pattern1=/java(?!script)/;
+        // console.log(pattern1.exec(str));
+
+        var str = "Java 是一门很好的编程语言，JavaScript是非常好、非常实用的脚本语言！"
+        var pattern = /java(?=script)/i; // 只有java后面跟script才匹配这个Java （前瞻性匹配）
+        var pattern2 = /java(?!script)/i; // java后面如果是script就不匹配这个Java （负向前瞻性匹配）
+        console.log(pattern.exec(str)); 
+
     </script>
 </body>
 

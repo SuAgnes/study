@@ -19,7 +19,7 @@
         //构造函数属性 (非常不常使用,不同浏览器实现情况不一样);
         let patternFn=/(j)s/;
         patternFn.exec(str);
-        // 只有调用exec或者test方法,这里的RegExp才有值
+        // 只有调用exec或者test方法,我们的构造函数属性（例如RegExp.input）才有值
 
         console.log(RegExp.input);
         console.log(RegExp.$_); //等于input

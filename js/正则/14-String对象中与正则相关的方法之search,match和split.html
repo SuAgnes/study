@@ -17,7 +17,7 @@
         console.log(str.search('js')); //传字符串的话,search会先将字符串通过构造函数转化为正则,再进行匹配
 
         let str2 = 'js js js';
-        console.log(str2.match(pattern));//和extc相同,不同的时候是全局匹配的时候↓
+        console.log(str2.match(pattern));//和exec相同,不同的时候是全局匹配的时候↓
         let pattern2 = /(j)s/g;
         console.log(str2.match(pattern2)); //一次性全部抓出来,但是分组中的东西没有了
 
