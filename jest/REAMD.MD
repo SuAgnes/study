@@ -59,3 +59,13 @@ q: 退出代码监控
 Enter: 重新运行测试
 
 p: 通过p模式可以做一些筛选 筛选运行的测试用例文件
+
+{
+  "presets": [
+    ["@babel/preset-env", {
+        "targets": {
+          "node": "current"
+        }
+    }]
+  ]
+}
