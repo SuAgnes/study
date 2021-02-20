@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateConfig 1`] = `
+Object {
+  "prot": 8080,
+  "server": "http://localhost",
+  "time": Any<Date>,
+}
+`;
