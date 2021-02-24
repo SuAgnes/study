@@ -19,7 +19,7 @@ const getList = (author, keyword) => {
   // 1=1 永远成立，用处是占一个位，用于author和keyword都没有值的情况
   let sql = `select * from blogs where 1=1 `;
   if (author) {
-    sql += `and author ='$${author}' `
+    sql += `and author ='${author}' `
   }
   if (keyword) {
     sql += `and title like '%${keyword}%' `

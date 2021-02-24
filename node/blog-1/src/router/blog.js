@@ -7,6 +7,16 @@ const {
 } = require('../controller/blog')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
+// 统一登录验证函数
+const loginCheck = (req) => {
+  if(!req.session.username) {
+    return Promise.resolve(new ErrorModel('尚未登录'));
+  }
+  // return Promise.resolve(new SuccessModel({
+  //   // username: req.cookie.username
+  //   session: req.session
+  // }));
+}
 const handleBlogRouter = (req, res) => {
   const { method } =  req;
   const id = req.query.id;
@@ -18,9 +28,19 @@ const handleBlogRouter = (req, res) => {
     // const listData = getList(author, keyword);
     // return new SuccessModel(listData);
 
+    // 识别admin
+    if (req.query.isadmin) {
+      //管理员界面
+      const loginCheckResult = loginCheck(req);
+      if (loginCheckResult) {
+        // 未登录
+        return loginCheckResult;
+      }
+      author = req.session.username;
+    }
     const result = getList(author, keyword);
     return result.then(listData => {
-      return new SuccessModel(listData);
+      return new SuccessModel(listData); 
     })
   }
 
@@ -40,7 +60,13 @@ const handleBlogRouter = (req, res) => {
     // const data = newBlog(blogData);
     // return new SuccessModel(data);
 
-    req.body.author = 'z3';
+    // req.body.author = 'z3';
+    const loginCheckResult = loginCheck(req);
+    if (loginCheckResult) {
+      // 未登录
+      return loginCheckResult;
+    }
+    req.body.author = req.session.username;
     const result = newBlog(req.body);
     return result.then(data => {
       return new SuccessModel(data)
@@ -49,6 +75,12 @@ const handleBlogRouter = (req, res) => {
 
   // 更新一篇博客
   if (method === 'POST' && req.path === '/api/blog/update') {
+    const  loginCheckResult = loginCheck(req);
+    if (loginCheckResult) {
+      // 未登录
+      return loginCheckResult;
+    }
+
     const result = updateBlog(id, req.body);
     // if (result) {
     //   return new SuccessModel()
@@ -67,13 +99,19 @@ const handleBlogRouter = (req, res) => {
 
   // 删除一篇博客
   if (method === 'POST' && req.path === '/api/blog/del') {
+    const  loginCheckResult = loginCheck(req);
+    if (loginCheckResult) {
+      // 未登录
+      return loginCheckResult;
+    }
+
     // const result = deleteBlog(id);
     // if (result) {
     //   return new SuccessModel()
     // } else {
     //   return new ErrorModel('fail')
     // }
-    const author = 'z3';
+    const author = req.session.username;
     const result = deleteBlog(id, author);
     return result.then(val => {
       if (val) {
