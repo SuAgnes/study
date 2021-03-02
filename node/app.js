@@ -19,7 +19,7 @@ const querystring = require('querystring');
 //   exercise 1
 //   if (req.method === 'POST') {
 //     console.log(req.headers['content-type']);
-//     // 接受数据
+//     // 接受数据 流的形式 一点点接受
 //     let postData = '';
 //     req.on('data', chunk => { // chunk是二进制
 //       postData += chunk.toString();
