@@ -26,7 +26,7 @@ cookie跨域不共享，前端和server必须同域。
 
 全局安装server服务 npm install http-server -g
 
-nginx:
+## nginx
 高性能的web服务器 开源免费
 一般用于做静态服务（CND等，服务端吧需要解析直接返回的文件），负载均衡（一台主机器，其他的均分流量，以至于整个集群的负载可以做最高，NGINX内部有一个模块可以做负载均衡的配置，可以做一个入口，流量来了可以分配到不同的机器上去，平均流量）
 反向代理
@@ -85,3 +85,38 @@ IO包括“网络IO”和“文件IO”
 
 res和req都具有流动的特性
 
+## 日志拆分
+1. 日志内容会随时间累积，放一个文件内不好处理
+2. 按时间划分日志，例如2019-02-10 access.log
+实现：Linux的crontab命令，即定时任务。
+
+格式： *****command 对应分钟·小时·日期·月·星期几
+将access.log 拷贝并重命名为 2019-02-10 .access.log
+清空access.log 继续积累日志
+
+不用node做是因为如果用nodejs，那么到时间需要启动进程，然后用nodejs执行
+shall脚本用操作系统做这些操作，并且效率比nodejs高
+
+#!/bin/sh 的意思是当前系统执行shall脚本的执行文件。
+sh copy.sh 执行
+
+脚本目录：/Users/rachel/Documents/my-github/study/node/blog-1/src/utils
+
+### crontab 使用 - 日志分析
+在blog-1下执行
+打开编辑器：crontab -e
+输入 * 0 * * * sh /Users/rachel/Documents/my-github/study/node/blog-1/src/utils/copy.sh          
+:wq 保存后就会在每天的凌晨后立刻触发
+执行成功：
+crontab: no crontab for rachel - using an empty one
+crontab: installing new crontab     
+
+查看当前任务：crontab -l
+
+### 例子
+
+如针对access.log日志，分析 Chrome 占比。
+日志按行存储，一行是一个日志
+使用nodejs 的 readline（基于stream，效率高）读取。
+stream 是一点点读取数据，但不一定是一行一行。
+readline 通过 stream 的方式，一行行读取文件。
