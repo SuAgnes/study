@@ -1,5 +1,5 @@
 const { exec } = require('../db/mysql');
-
+const xss = require('xss');
 const getList = (author, keyword) => {
   // 先返回假数据（格式是正确的）
   // return [{
@@ -53,8 +53,11 @@ const getDetail = (id) => {
 
 const newBlog = (blogData = {}) => {
   const { title, content, author } = blogData;
+  const xssTitle = xss(title);
+  // 预防xss
+  console.log(xssTitle);
   const createTime = Date.now();
-  const  sql = `insert into blogs (title, content, createtime, author) values('${title}', '${content}', ${createTime}, '${author}');`
+  const  sql = `insert into blogs (title, content, createtime, author) values('${xssTitle}', '${content}', ${createTime}, '${author}');`
   return exec(sql).then(insertData => {
     return {
       id: insertData.insertId

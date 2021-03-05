@@ -120,3 +120,31 @@ crontab: installing new crontab
 使用nodejs 的 readline（基于stream，效率高）读取。
 stream 是一点点读取数据，但不一定是一行一行。
 readline 通过 stream 的方式，一行行读取文件。
+
+## 安全
+
+预防sql注入
+使用mysql的escape函数处理输入内容
+
+因为sql是这样查找
+```mysql
+`
+select username, realname from users where username='${username}' and password='${password}'
+`
+```
+所以如果我们在用户名后面加' -- 的话，就会把密码注释掉
+```mysql
+`
+select username, realname from users where username='${username}' -- ' and password='${password}'
+`
+```
+
+这时候就可以不用输密码了。
+
+用escape预防后，就可以避免，不过需要在所有能拼接成sql语句的变量使用escape
+
+### XSS攻击
+
+npm install xss --save
+
+预防xss攻击

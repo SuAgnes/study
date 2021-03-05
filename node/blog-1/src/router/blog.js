@@ -23,7 +23,7 @@ const handleBlogRouter = (req, res) => {
 
   // 获取博客列表
   if (method === 'GET' && req.path === '/api/blog/list') {
-    const author = req.query.author || '';
+    let author = req.query.author || '';
     const keyword = req.query.keyword || '';
     // const listData = getList(author, keyword);
     // return new SuccessModel(listData);
@@ -40,6 +40,9 @@ const handleBlogRouter = (req, res) => {
     }
     const result = getList(author, keyword);
     return result.then(listData => {
+      // console.log(
+      //   listData
+      // );
       return new SuccessModel(listData); 
     })
   }
